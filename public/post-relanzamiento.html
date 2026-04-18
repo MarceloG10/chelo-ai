@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080" />
+  <title>Post Relanzamiento — Hello Human</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+      background: #050505;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .canvas {
+      width: 1080px;
+      height: 1350px;
+      background: #050505;
+      position: relative;
+    }
+
+    /* Subtle radial glow */
+    .canvas::before {
+      content: '';
+      position: absolute;
+      width: 700px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(124,58,237,0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .main-group {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 60px;
+    }
+
+    .logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 60px;
+    }
+
+    .text-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      font-size: 16px;
+      font-weight: 700;
+      color: #7c3aed;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .title {
+      font-size: 108px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 0.92;
+      letter-spacing: -4px;
+      white-space: nowrap;
+      text-align: left;
+    }
+
+    .subtitle {
+      font-size: 34px;
+      font-weight: 700;
+      color: #7c3aed;
+      letter-spacing: -0.3px;
+      text-align: left;
+    }
+
+    .tagline {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.30);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    .url {
+      position: absolute;
+      bottom: 60px;
+      right: 60px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #7c3aed;
+      letter-spacing: 0.08em;
+    }
+
+    .accent-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 320px;
+      height: 3px;
+      background: linear-gradient(to right, #7c3aed, transparent);
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="main-group">
+      <img src="logo-white.png" alt="Hello Human" class="logo" />
+      <div class="text-group">
+        <p class="eyebrow">Nuevo capítulo</p>
+        <h1 class="title">Evolucionamos.</h1>
+        <p class="subtitle">Ahora somos 100% Agentes de IA</p>
+        <p class="tagline">Venden &nbsp;·&nbsp; Reportan &nbsp;·&nbsp; Resuelven</p>
+      </div>
+    </div>
+
+    <p class="url">hhtech.dev</p>
+    <div class="accent-line"></div>
+  </div>
+</body>
+</html>
