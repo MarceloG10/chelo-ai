@@ -15,15 +15,35 @@ function OrbitVisual() {
   );
 }
 
-/* ── Sliders ────────────────────────────────────────────── */
-function SlidersVisual() {
+/* ── Chips (DEFINE) ─────────────────────────────────────── */
+const CHIP_ROWS: { label: string; chips: string[] }[] = [
+  { label: "TONO",    chips: ["formal", "casual", "técnico"] },
+  { label: "IDIOMA",  chips: ["ES", "EN", "FR"] },
+  { label: "LÍMITES", chips: ["suave", "estricto"] },
+];
+
+function ChipsVisual() {
+  const [actives, setActives] = useState([0, 0, 0]);
+  useEffect(() => {
+    const t = setInterval(() => {
+      const row = Math.floor(Math.random() * CHIP_ROWS.length);
+      setActives((prev) => {
+        const next = [...prev];
+        next[row] = (prev[row] + 1) % CHIP_ROWS[row].chips.length;
+        return next;
+      });
+    }, 1200);
+    return () => clearInterval(t);
+  }, []);
   return (
-    <div className="bv-sliders">
-      {["Tono", "Idioma", "Límites"].map((lbl, i) => (
-        <div key={lbl} className="bv-slider-row">
-          <div className="bv-slider-label">{lbl}</div>
-          <div className="bv-slider-track">
-            <div className={`bv-slider-fill bv-fill-${i + 1}`} />
+    <div className="bv-chips">
+      {CHIP_ROWS.map((row, i) => (
+        <div key={row.label} className="bv-chip-row">
+          <div className="bv-chip-label">{row.label}</div>
+          <div className="bv-chip-group">
+            {row.chips.map((chip, j) => (
+              <span key={chip} className={`bv-chip${actives[i] === j ? " active" : ""}`}>{chip}</span>
+            ))}
           </div>
         </div>
       ))}
@@ -31,19 +51,47 @@ function SlidersVisual() {
   );
 }
 
-/* ── Bars ───────────────────────────────────────────────── */
+/* ── Bars (ENTRENA) ─────────────────────────────────────── */
+const STREAM_LINES = [
+  "> processing batch 1/12",
+  "> tokens: 4,821",
+  "> acc: 0.94",
+  "> embedding docs…",
+  "> processing batch 2/12",
+  "> tokens: 9,340",
+  "> acc: 0.96",
+  "> indexing chunks…",
+  "> processing batch 3/12",
+  "> tokens: 14,203",
+  "> acc: 0.97",
+  "> fine-tuning…",
+];
+
 function BarsVisual() {
+  const [offset, setOffset] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setOffset((o) => o + 1), 900);
+    return () => clearInterval(t);
+  }, []);
+  const visible = Array.from({ length: 6 }, (_, i) => STREAM_LINES[(offset + i) % STREAM_LINES.length]);
   return (
-    <div className="bv-bars">
-      {["A", "B", "C"].map((lbl, i) => (
-        <div key={lbl} className="bv-bar-row">
-          <div className="bv-bar-lbl">{lbl}</div>
-          <div className="bv-bar-track">
-            <div className="bv-bar-fill" style={{ animationDelay: `${i * 0.5}s` }} />
+    <div className="bv-bars-wrap">
+      <div className="bv-stream" aria-hidden="true">
+        {visible.map((line, i) => (
+          <div key={i} className="bv-stream-line">{line}</div>
+        ))}
+      </div>
+      <div className="bv-bars">
+        {["A", "B", "C"].map((lbl, i) => (
+          <div key={lbl} className="bv-bar-row">
+            <div className="bv-bar-lbl">{lbl}</div>
+            <div className="bv-bar-track">
+              <div className="bv-bar-fill" style={{ animationDelay: `${i * 0.5}s` }} />
+            </div>
           </div>
-        </div>
-      ))}
-      <div className="bv-learning">aprendiendo<span className="bv-learning-dot" /></div>
+        ))}
+        <div className="bv-learning">aprendiendo<span className="bv-learning-dot" /></div>
+      </div>
     </div>
   );
 }
@@ -94,7 +142,7 @@ function MetricsVisual() {
 /* ── Builder ────────────────────────────────────────────── */
 const CARDS = [
   { num: "01 / CONECTA", title: "Tus fuentes\nde datos.",    Visual: OrbitVisual  },
-  { num: "02 / DEFINE",  title: "Tono y\npersonalidad.",     Visual: SlidersVisual },
+  { num: "02 / DEFINE",  title: "Tono y\npersonalidad.",     Visual: ChipsVisual   },
   { num: "03 / ENTRENA", title: "Con tu\nnegocio real.",     Visual: BarsVisual   },
   { num: "04 / LANZA",   title: "En producción.\n24/7.",     Visual: MetricsVisual },
 ];
