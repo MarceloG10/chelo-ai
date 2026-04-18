@@ -1,6 +1,6 @@
 export default function Services() {
   return (
-    <section className="section reveal" id="servicios">
+    <section className="section" id="servicios">
       <div className="wrap">
         <div className="section-head reveal">
           <div className="section-label">[ 01 · Servicios ]</div>
@@ -28,10 +28,10 @@ export default function Services() {
             <div className="service-num">01 / Agentes de IA</div>
             <h3 className="service-title">Agentes que<br />no duermen.</h3>
             <p className="service-desc">
-              Diseñamos agentes personalizados que venden, reportan, ejecutan. Integrados con tu WhatsApp, email, CRM o stack interno. Nada genérico: cada agente se entrena con tu negocio.
+              Diseñamos agentes personalizados que venden, reportan, ejecutan. Integrados con tu WhatsApp, email, CRM o stack interno. Nada genérico.
             </p>
             <div className="service-list">
-              <span>Atención al cliente 24/7</span>
+              <span>Atención 24/7</span>
               <span>Calificación de leads</span>
               <span>Automatización de backoffice</span>
               <span>Voz + WhatsApp + email</span>
@@ -48,7 +48,7 @@ export default function Services() {
             <div className="service-num">02 / Desarrollo</div>
             <h3 className="service-title">Apps y webs<br />hechas rápido.</h3>
             <p className="service-desc">
-              MVPs en 2-4 semanas. Productos completos en meses, no años. Usamos IA en cada paso — desde el diseño hasta el deploy — para ir más rápido sin sacrificar calidad.
+              MVPs en 2-4 semanas. Productos completos en meses, no años. Usamos IA en cada paso — desde el diseño hasta el deploy.
             </p>
             <div className="service-list">
               <span>Apps móviles (iOS / Android)</span>
@@ -58,23 +58,28 @@ export default function Services() {
             </div>
           </div>
 
-          {/* Digitalización */}
+          {/* Datos */}
           <div className="service reveal">
-            <div className="service-visual viz-digit">
-              <div className="bar" />
-              <div className="bar" />
-              <div className="bar" />
+            <div className="service-visual viz-datos">
+              <svg viewBox="0 0 200 120" preserveAspectRatio="none">
+                <rect x="20" y="70" width="24" height="40" fill="var(--v-accent)" opacity="0.7" className="bar-anim bar-1" />
+                <rect x="56" y="50" width="24" height="60" fill="var(--v-accent)" opacity="0.85" className="bar-anim bar-2" />
+                <rect x="92" y="30" width="24" height="80" fill="var(--v-accent)" className="bar-anim bar-3" />
+                <rect x="128" y="55" width="24" height="55" fill="var(--v-accent)" opacity="0.8" className="bar-anim bar-4" />
+                <polyline points="32,70 68,50 104,30 140,55 176,38" fill="none" stroke="var(--v-ink)" strokeWidth="1.5" opacity="0.5" className="sparkline" />
+                <circle cx="176" cy="38" r="3" fill="var(--v-accent)" />
+              </svg>
             </div>
-            <div className="service-num">03 / Digitalización</div>
-            <h3 className="service-title">Procesos<br />sin papel.</h3>
+            <div className="service-num">03 / Visualización de datos</div>
+            <h3 className="service-title">Datos que<br />hablan claro.</h3>
             <p className="service-desc">
-              Convertimos tus procesos manuales en flujos digitales. Migración desde Excel, integración entre sistemas, automatización de tareas repetitivas que nadie quiere hacer.
+              Conectamos tus fuentes dispersas (CRM, ERP, Excel, APIs) y las convertimos en dashboards con IA que explica qué está pasando y qué hacer.
             </p>
             <div className="service-list">
-              <span>Integraciones (CRM, ERP)</span>
-              <span>Automatización con n8n / Zapier</span>
-              <span>Dashboards de datos</span>
-              <span>Auditoría de procesos</span>
+              <span>Dashboards en tiempo real</span>
+              <span>Alertas Slack/email</span>
+              <span>Reportes que se explican solos</span>
+              <span>KPIs + predicciones</span>
             </div>
           </div>
         </div>

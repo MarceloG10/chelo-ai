@@ -11,7 +11,7 @@ export default function Hero() {
 
         <div className="hero-grid" id="heroGrid">
           <div className="hero-left">
-            <div className="eyebrow">Agentes de IA · Apps · Digitalización</div>
+            <div className="eyebrow">Agentes de IA · Apps · Dashboards con IA</div>
             <h1 className="hero-h1">
               Software a velocidad <em>imposible</em>.
             </h1>
@@ -25,13 +25,13 @@ export default function Hero() {
                   <path d="M4 8h8M8 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
-              <a href="#demo" className="btn btn-ghost-outline">
-                Prueba el agente →
+              <a href="#proyectos" className="btn btn-ghost-outline">
+                Ver proyectos →
               </a>
             </div>
             <div className="hero-meta">
               <div><b>4 sem</b>de idea<br />a producción</div>
-              <div><b>3</b>proyectos<br />en marcha</div>
+              <div><b>10×</b>más rápido que una<br />agencia tradicional</div>
               <div><b>24/7</b>agentes<br />trabajando</div>
             </div>
           </div>
