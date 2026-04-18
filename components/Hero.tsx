@@ -36,7 +36,10 @@ export default function Hero() {
             </div>
           </div>
 
-          <OpsConsole />
+          <div className="ops-col">
+            <OpsConsole />
+            <div className="ops-coords">Barcelona · 41.38°N 2.17°E</div>
+          </div>
 
           <div className="hero-mosaic" aria-hidden="true">
             <div className="mos-card mos-1">

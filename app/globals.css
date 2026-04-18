@@ -360,7 +360,11 @@ footer { padding: 48px 0; border-top: 1px solid color-mix(in srgb, var(--v-ink) 
 .hero-deco.d1 { top: 100px; right: 40px; z-index: 0; }
 .hero-deco.d2 { top: 124px; right: 40px; z-index: 0; }
 
-/* Demo activo (default): ocultar ambas decoraciones */
+.ops-col { display: flex; flex-direction: column; gap: 10px; }
+.ops-coords { font-family: var(--v-mono); font-size: 11px; color: var(--v-muted); opacity: 0.6; text-align: right; }
+@media (max-width: 960px) { .ops-coords { display: none; } }
+
+/* Demo activo (default): ocultar ambas decoraciones absolutas */
 .hero:has(.hero-grid:not(.no-demo)) .hero-deco { display: none; }
 
 /* Modo mosaic (no-demo): d1 siempre oculta, d2 al margen inferior derecho */
