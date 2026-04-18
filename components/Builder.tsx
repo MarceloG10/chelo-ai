@@ -1,53 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const CARDS = [
-  {
-    num: "01 / CONECTA",
-    title: "Tus fuentes\nde datos.",
-    visual: "orbit",
-  },
-  {
-    num: "02 / DEFINE",
-    title: "Tono y\npersonalidad.",
-    visual: "sliders",
-  },
-  {
-    num: "03 / ENTRENA",
-    title: "Con tu\nnegocio real.",
-    visual: "bars",
-  },
-  {
-    num: "04 / LANZA",
-    title: "En producción.\n24/7.",
-    visual: "metrics",
-  },
-];
-
+/* ── Orbit ─────────────────────────────────────────────── */
 const ORBIT_LABELS = ["CRM", "WA", "DB", "API"];
-
 function OrbitVisual() {
   return (
     <div className="bv-orbit">
       <div className="bv-core" />
       {ORBIT_LABELS.map((lbl, i) => (
-        <div
-          key={lbl}
-          className={`bv-dot bv-dot-${i + 1}`}
-          data-label={lbl}
-          style={{ animationDelay: `${-i}s` }}
-        />
+        <div key={lbl} className={`bv-dot bv-dot-${i + 1}`} data-label={lbl} />
       ))}
     </div>
   );
 }
 
+/* ── Sliders ────────────────────────────────────────────── */
 function SlidersVisual() {
-  const labels = ["Tono", "Idioma", "Límites"];
   return (
     <div className="bv-sliders">
-      {labels.map((lbl, i) => (
+      {["Tono", "Idioma", "Límites"].map((lbl, i) => (
         <div key={lbl} className="bv-slider-row">
           <div className="bv-slider-label">{lbl}</div>
           <div className="bv-slider-track">
@@ -59,59 +31,79 @@ function SlidersVisual() {
   );
 }
 
+/* ── Bars ───────────────────────────────────────────────── */
 function BarsVisual() {
-  const labels = ["A", "B", "C"];
   return (
     <div className="bv-bars">
-      {labels.map((lbl, i) => (
+      {["A", "B", "C"].map((lbl, i) => (
         <div key={lbl} className="bv-bar-row">
           <div className="bv-bar-lbl">{lbl}</div>
           <div className="bv-bar-track">
-            <div
-              className="bv-bar-fill"
-              style={{ animationDelay: `${i * 0.4}s` }}
-            />
+            <div className="bv-bar-fill" style={{ animationDelay: `${i * 0.5}s` }} />
           </div>
         </div>
       ))}
-      <div style={{ fontFamily: "var(--v-mono)", fontSize: 10, color: "var(--v-accent)", marginTop: 6 }}>
-        aprendiendo…
-      </div>
+      <div className="bv-learning">aprendiendo<span className="bv-learning-dot" /></div>
     </div>
   );
 }
 
+/* ── Metrics ────────────────────────────────────────────── */
 function MetricsVisual() {
-  const metrics = [
-    { val: "1.2k", lbl: "msgs/día" },
-    { val: "89",   lbl: "leads" },
-    { val: "99%",  lbl: "uptime" },
-    { val: "3s",   lbl: "respuesta" },
+  const [vals, setVals] = useState([1247, 89, 99.9, 3.2]);
+  const [flipIdx, setFlipIdx] = useState(-1);
+  const cycleRef = useRef(0);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      const idx = cycleRef.current % 4;
+      cycleRef.current++;
+      setFlipIdx(idx);
+      setVals((prev) => {
+        const next = [...prev];
+        if (idx === 0) next[0] = prev[0] + Math.floor(Math.random() * 4) + 1;
+        if (idx === 1) next[1] = prev[1] + 1;
+        if (idx === 3) next[3] = parseFloat((Math.random() * 1 + 2.4).toFixed(1));
+        return next;
+      });
+      setTimeout(() => setFlipIdx(-1), 380);
+    }, 1500);
+    return () => clearInterval(t);
+  }, []);
+
+  const display = [
+    vals[0] >= 1000 ? `${(vals[0] / 1000).toFixed(1)}k` : String(vals[0]),
+    String(vals[1]),
+    "99.9%",
+    `${vals[3]}s`,
   ];
+  const labels = ["msgs/día", "leads", "uptime", "respuesta"];
+
   return (
     <div className="bv-metrics">
-      {metrics.map((m) => (
-        <div key={m.lbl} className="bv-metric">
-          <div className="bv-metric-val">{m.val}</div>
-          <div className="bv-metric-lbl">{m.lbl}</div>
+      {display.map((v, i) => (
+        <div key={labels[i]} className="bv-metric">
+          <div className={`bv-metric-val${flipIdx === i ? " flipping" : ""}`}>{v}</div>
+          <div className="bv-metric-lbl">{labels[i]}</div>
         </div>
       ))}
     </div>
   );
 }
 
-const VISUALS: Record<string, () => React.ReactElement> = {
-  orbit: OrbitVisual,
-  sliders: SlidersVisual,
-  bars: BarsVisual,
-  metrics: MetricsVisual,
-};
+/* ── Builder ────────────────────────────────────────────── */
+const CARDS = [
+  { num: "01 / CONECTA", title: "Tus fuentes\nde datos.",    Visual: OrbitVisual  },
+  { num: "02 / DEFINE",  title: "Tono y\npersonalidad.",     Visual: SlidersVisual },
+  { num: "03 / ENTRENA", title: "Con tu\nnegocio real.",     Visual: BarsVisual   },
+  { num: "04 / LANZA",   title: "En producción.\n24/7.",     Visual: MetricsVisual },
+];
 
 export default function Builder() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setActive((a) => (a + 1) % CARDS.length), 2800);
+    const t = setInterval(() => setActive((a) => (a + 1) % CARDS.length), 2500);
     return () => clearInterval(t);
   }, []);
 
@@ -124,22 +116,19 @@ export default function Builder() {
         </div>
 
         <div className="builder-grid reveal">
-          {CARDS.map((card, i) => {
-            const Visual = VISUALS[card.visual];
-            return (
-              <div key={i} className={`builder-card${active === i ? " active" : ""}`}>
-                <div className="builder-n">{card.num}</div>
-                <h3 className="builder-title">
-                  {card.title.split("\n").map((line, j) => (
-                    <span key={j}>{line}{j === 0 && <br />}</span>
-                  ))}
-                </h3>
-                <div className="builder-visual">
-                  <Visual />
-                </div>
+          {CARDS.map(({ num, title, Visual }, i) => (
+            <div key={i} className={`builder-card bstep${active === i ? " active" : ""}`}>
+              <div className="builder-n">{num}</div>
+              <h4 className="builder-title">
+                {title.split("\n").map((line, j) => (
+                  <span key={j}>{line}{j === 0 && <br />}</span>
+                ))}
+              </h4>
+              <div className="builder-visual">
+                <Visual />
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>
