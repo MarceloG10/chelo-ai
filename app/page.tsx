@@ -8,11 +8,13 @@ import StackSection from "@/components/StackSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import RevealInit from "@/components/RevealInit";
+import CoordsParallax from "@/components/CoordsParallax";
 
 export default function Home() {
   return (
     <>
       <RevealInit />
+      <CoordsParallax />
       <Navbar />
       <Hero />
       <MarqueeSection />

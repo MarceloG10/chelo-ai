@@ -38,7 +38,7 @@ export default function Hero() {
 
           <div className="ops-col">
             <OpsConsole />
-            <div className="ops-coords">Barcelona · 41.38°N 2.17°E</div>
+            <div className="ops-coords" id="coords">Barcelona · 41.38°N 2.17°E</div>
           </div>
 
           <div className="hero-mosaic" aria-hidden="true">

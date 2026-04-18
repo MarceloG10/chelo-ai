@@ -360,8 +360,8 @@ footer { padding: 48px 0; border-top: 1px solid color-mix(in srgb, var(--v-ink) 
 .hero-deco.d1 { top: 100px; right: 40px; z-index: 0; }
 .hero-deco.d2 { top: 124px; right: 40px; z-index: 0; }
 
-.ops-col { display: flex; flex-direction: column; gap: 10px; }
-.ops-coords { font-family: var(--v-mono); font-size: 11px; color: var(--v-muted); opacity: 0.6; text-align: right; }
+.ops-col { display: flex; flex-direction: column; gap: 22px; }
+.ops-coords { font-family: var(--v-mono); font-size: 11px; color: var(--v-muted); opacity: 0.6; text-align: right; transition: transform .25s cubic-bezier(.2,.7,.2,1); will-change: transform; padding-top: 6px; }
 @media (max-width: 960px) { .ops-coords { display: none; } }
 
 /* Demo activo (default): ocultar ambas decoraciones absolutas */
