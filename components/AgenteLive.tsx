@@ -2,21 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type Msg = { from: "client" | "agent"; text: string };
+type Msg = { from: "out" | "in"; text: string };
 
 const SCRIPT: Array<
-  | { kind: "msg"; from: "client" | "agent"; text: string; feature: number; pause: number }
+  | { kind: "msg"; from: "out" | "in"; text: string; feature: number; pause: number }
   | { kind: "typing"; pause: number }
 > = [
-  { kind: "msg",    from: "client", text: "Hola! Me interesa saber sobre la limpieza facial 😊",                                              feature: 0, pause: 900 },
+  { kind: "msg",    from: "out", text: "Hola! Me interesa saber sobre la limpieza facial 😊",                                              feature: 0, pause: 900 },
   { kind: "typing", pause: 1600 },
-  { kind: "msg",    from: "agent",  text: "¡Hola! La limpieza profunda incluye extracción, hidratación y mascarilla. Dura 60 min. ¿Te gustaría saber el precio?", feature: 1, pause: 1000 },
-  { kind: "msg",    from: "client", text: "Sí, ¿cuánto cuesta?",                                                                              feature: 1, pause: 900 },
+  { kind: "msg",    from: "in",  text: "¡Hola! La limpieza profunda incluye extracción, hidratación y mascarilla. Dura 60 min. ¿Te gustaría saber el precio?", feature: 1, pause: 1000 },
+  { kind: "msg",    from: "out", text: "Sí, ¿cuánto cuesta?",                                                                              feature: 1, pause: 900 },
   { kind: "typing", pause: 1500 },
-  { kind: "msg",    from: "agent",  text: "Son €65. Tengo disponibilidad esta semana. ¿Cuándo te viene bien?",                                 feature: 2, pause: 1100 },
-  { kind: "msg",    from: "client", text: "El jueves por la tarde 🙏",                                                                         feature: 2, pause: 900 },
+  { kind: "msg",    from: "in",  text: "Son €65. Tengo disponibilidad esta semana. ¿Cuándo te viene bien?",                                 feature: 2, pause: 1100 },
+  { kind: "msg",    from: "out", text: "El jueves por la tarde 🙏",                                                                         feature: 2, pause: 900 },
   { kind: "typing", pause: 1400 },
-  { kind: "msg",    from: "agent",  text: "✅ ¡Cita confirmada! Jueves 17:00. Te aviso el día antes 🎉",                                       feature: 3, pause: 3200 },
+  { kind: "msg",    from: "in",  text: "✅ ¡Cita confirmada! Jueves 17:00. Te aviso el día antes 🎉",                                       feature: 3, pause: 3200 },
 ];
 
 const FEATURES = [
