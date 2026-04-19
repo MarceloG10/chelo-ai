@@ -13,11 +13,19 @@ export default function CTASection() {
     const form = e.currentTarget;
     setStatus("sending");
 
+    const fd = new FormData(form);
+    const body = {
+      name: fd.get("name"),
+      email: fd.get("email"),
+      service: fd.get("service"),
+      msg: fd.get("msg"),
+    };
+
     try {
-      const res = await fetch("https://formsubmit.co/ajax/7bd5f52d83ab438d42e2b848a6838ade", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
       });
       if (res.ok) {
         setStatus("ok");
