@@ -16,7 +16,7 @@ export default function Hero() {
               Software a velocidad <em>imposible</em>.
             </h1>
             <p className="hero-sub">
-              <strong>Humanos + IA.</strong> Construimos agentes, apps y sistemas que antes tomaban meses — ahora en días. Sin equipos gigantes. Sin burocracia. Sin humo.
+              <strong>Humanos + IA.</strong> Construimos agentes, apps y sistemas que antes tomaban meses, ahora en días. Sin equipos gigantes. Sin burocracia. Sin humo.
             </p>
             <div className="hero-actions">
               <a href={WA_LINK} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
