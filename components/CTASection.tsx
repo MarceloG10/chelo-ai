@@ -22,7 +22,6 @@ export default function CTASection() {
       if (res.ok) {
         setStatus("ok");
         form.reset();
-        setTimeout(() => setStatus("idle"), 4000);
       } else {
         throw new Error("fail");
       }
@@ -65,6 +64,21 @@ export default function CTASection() {
             </div>
           </div>
 
+          {status === "ok" ? (
+            <div className="form-success">
+              <div className="success-check">
+                <svg viewBox="0 0 52 52" fill="none">
+                  <circle className="check-circle" cx="26" cy="26" r="24" stroke="var(--v-accent)" strokeWidth="2" />
+                  <path className="check-mark" d="M14 26l9 9 15-15" stroke="var(--v-accent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="success-title">¡Mensaje recibido!</h3>
+              <p className="success-sub">Te contactamos antes de <strong>24 horas</strong>.<br />Mantén un ojo en tu bandeja de entrada.</p>
+              <div style={{ fontFamily: "var(--v-mono)", fontSize: 11, opacity: 0.45, marginTop: 24, letterSpacing: ".1em" }}>
+                EQUIPO HELLO HUMAN · BARCELONA
+              </div>
+            </div>
+          ) : (
           <form
             className="form"
             onSubmit={handleSubmit}
@@ -99,7 +113,6 @@ export default function CTASection() {
                 className="btn-accent"
                 disabled={status === "sending"}
                 style={
-                  status === "ok" ? { background: "#25D366", color: "#fff" } :
                   status === "error" ? { background: "#ff4545", color: "#fff" } : {}
                 }
               >
@@ -113,6 +126,7 @@ export default function CTASection() {
               <span style={{ fontFamily: "var(--v-mono)", fontSize: 11, opacity: 0.5 }}>RESPUESTA EN &lt; 24H</span>
             </div>
           </form>
+          )}
         </div>
       </div>
     </section>
