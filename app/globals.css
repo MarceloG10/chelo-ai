@@ -880,10 +880,11 @@ html[data-variant="vapor"] .mob-link { font-family: var(--v-sans); font-weight: 
 }
 
 @media (max-width: 420px) {
-  /* Hero meta más compacto */
-  .hero-meta { flex-wrap: wrap; gap: 14px; }
-  .hero-meta > div { flex: 1 1 calc(50% - 7px); min-width: 0; }
-  .hero-meta b { font-size: 18px; }
+  /* Hero meta — 3 items en una sola fila */
+  .hero-meta { flex-wrap: nowrap; gap: 0; justify-content: space-between; }
+  .hero-meta > div { flex: 1 1 0; min-width: 0; }
+  .hero-meta b { font-size: 17px; }
+  .hero-meta { font-size: 10px; }
 
   /* Panel aún más compacto */
   .demo-panel { min-height: 380px; }
