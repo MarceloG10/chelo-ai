@@ -13,20 +13,8 @@ export default function CTASection() {
     const form = e.currentTarget;
     setStatus("sending");
 
-    const action = form.action;
-    if (action.includes("TU_ID_DE_FORMSPREE")) {
-      const fd = new FormData(form);
-      const body = [...fd.entries()]
-        .filter(([k]) => !k.startsWith("_"))
-        .map(([k, v]) => `${k}: ${v}`)
-        .join("\n");
-      window.location.href = `mailto:${EMAIL}?subject=Nuevo%20contacto%20desde%20Hello%20Human&body=${encodeURIComponent(body)}`;
-      setStatus("idle");
-      return;
-    }
-
     try {
-      const res = await fetch(action, {
+      const res = await fetch("https://formsubmit.co/ajax/Marcelo@hhtech.dev", {
         method: "POST",
         body: new FormData(form),
         headers: { Accept: "application/json" },
@@ -34,13 +22,13 @@ export default function CTASection() {
       if (res.ok) {
         setStatus("ok");
         form.reset();
-        setTimeout(() => setStatus("idle"), 3000);
+        setTimeout(() => setStatus("idle"), 4000);
       } else {
         throw new Error("fail");
       }
     } catch {
       setStatus("error");
-      setTimeout(() => setStatus("idle"), 3000);
+      setTimeout(() => setStatus("idle"), 4000);
     }
   }
 
@@ -79,11 +67,11 @@ export default function CTASection() {
 
           <form
             className="form"
-            action="https://formspree.io/f/TU_ID_DE_FORMSPREE"
-            method="POST"
             onSubmit={handleSubmit}
           >
-            <input type="hidden" name="_subject" value="Nuevo contacto desde Hello Human" />
+            <input type="hidden" name="_subject" value="Nuevo contacto desde Hello Human · hhtech.dev" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
             <div className="form-row">
               <label>Nombre</label>
               <input name="name" required placeholder="¿Cómo te llamas?" />
