@@ -56,7 +56,7 @@ export default function CTASection() {
           <div>
             <h2 className="cta-h2">¿Tienes una idea? <em>Hagámosla real esta semana.</em></h2>
             <p className="cta-sub">
-              Escríbenos por WhatsApp para una respuesta instantánea, o déjanos un mensaje si prefieres el correo tradicional. La primera conversación siempre es gratis — y directa al grano.
+              Escríbenos por WhatsApp para una respuesta instantánea, o déjanos un mensaje si prefieres el correo tradicional. La primera conversación siempre es gratis y directa al grano.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 32, flexWrap: "wrap" }}>
               <a href={WA_LINK} className="btn-wa" target="_blank" rel="noopener noreferrer">
