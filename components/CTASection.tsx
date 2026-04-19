@@ -14,7 +14,7 @@ export default function CTASection() {
     setStatus("sending");
 
     try {
-      const res = await fetch("https://formsubmit.co/ajax/Marcelo@hhtech.dev", {
+      const res = await fetch("https://formsubmit.co/ajax/7bd5f52d83ab438d42e2b848a6838ade", {
         method: "POST",
         body: new FormData(form),
         headers: { Accept: "application/json" },
