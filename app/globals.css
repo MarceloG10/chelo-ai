@@ -920,10 +920,12 @@ html[data-variant="vapor"] .mob-link { font-family: var(--v-sans); font-weight: 
   .fw-prog-label { display: none; }
   .fw-prog-row { gap: 8px; }
 
-  /* Hero stats — 3 en una fila siempre */
-  .hero-meta { margin-top: 36px; gap: 12px; flex-wrap: nowrap; justify-content: space-between; }
-  .hero-meta > div { flex: 1; min-width: 0; }
-  .hero-meta b { font-size: 20px; }
+  /* Hero stats — grid 3 columnas iguales */
+  .hero-meta { margin-top: 36px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .hero-meta > div { padding-right: 10px; }
+  .hero-meta > div:not(:first-child) { padding-left: 10px; border-left: 1px solid color-mix(in srgb, var(--v-ink) 12%, transparent); }
+  .hero-meta b { font-size: 19px; }
+  .hero-meta { font-size: 10.5px; }
 
   /* Service cards */
   .service { min-height: 320px; }
@@ -950,10 +952,7 @@ html[data-variant="vapor"] .mob-link { font-family: var(--v-sans); font-weight: 
 }
 
 @media (max-width: 420px) {
-  /* Hero meta — solo números, sin descripción (muy pequeño) */
-  .hero-meta { gap: 0; }
-  .hero-meta > div { overflow: hidden; max-height: 26px; }
-  .hero-meta b { font-size: 16px; margin-bottom: 0; }
+  .hero-meta b { font-size: 16px; }
 
   /* Panel aún más compacto */
   .demo-panel { min-height: 380px; }
