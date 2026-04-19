@@ -41,9 +41,31 @@ export default function Services() {
           {/* Apps */}
           <div className="service reveal">
             <div className="service-visual viz-apps">
-              <div className="frame" />
-              <div className="frame" />
-              <div className="frame" />
+              {/* Laptop */}
+              <div className="dev-laptop">
+                <div className="dev-screen">
+                  <div className="dev-bar" />
+                  <div className="dev-content">
+                    <div className="dev-row" style={{ width: "76%" }} />
+                    <div className="dev-row" style={{ width: "54%" }} />
+                    <div className="dev-row" style={{ width: "88%" }} />
+                    <div className="dev-row" style={{ width: "44%" }} />
+                  </div>
+                  <span className="dev-cursor" />
+                </div>
+                <div className="dev-chin" />
+              </div>
+              {/* Phone */}
+              <div className="dev-phone">
+                <div className="dev-screen">
+                  <div className="dev-bar" />
+                  <div className="dev-content">
+                    <div className="dev-row" style={{ width: "82%" }} />
+                    <div className="dev-row" style={{ width: "62%" }} />
+                    <div className="dev-row" style={{ width: "74%" }} />
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="service-num">02 / Desarrollo</div>
             <h3 className="service-title">Apps y webs<br />hechas rápido.</h3>

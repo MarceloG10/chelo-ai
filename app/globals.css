@@ -252,7 +252,7 @@ html[data-variant="vapor"] .service-title { font-weight: 600; letter-spacing: -0
 .service-list span { display: inline-flex; align-items: center; gap: 8px; color: var(--v-muted); }
 .service-list span::before { content: '▸'; color: var(--v-accent); }
 
-.service-visual { height: 120px; margin: -8px -16px 16px; border-radius: 12px; overflow: hidden; position: relative; }
+.service-visual { height: 140px; margin: -8px -16px 16px; border-radius: 12px; overflow: hidden; position: relative; }
 
 .viz-agents { background: linear-gradient(135deg, color-mix(in srgb, var(--v-accent) 14%, var(--v-card)), var(--v-card)); }
 .viz-agents svg { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -262,15 +262,84 @@ html[data-variant="vapor"] .service-title { font-weight: 600; letter-spacing: -0
 .viz-agents .node:nth-child(4) { animation-delay: 1.2s; }
 @keyframes pulseNode { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: .7; } }
 
-.viz-apps { background: color-mix(in srgb, var(--v-ink) 8%, var(--v-card)); display: flex; align-items: flex-end; justify-content: center; gap: 10px; padding: 16px; }
-.viz-apps .frame {
-  background: var(--v-bg); border: 1px solid color-mix(in srgb, var(--v-ink) 20%, transparent);
-  border-radius: 8px; animation: floatFrame 4s ease-in-out infinite;
+.viz-apps {
+  background: #0d1210;
+  display: flex; align-items: flex-end; justify-content: center;
+  gap: 12px; padding: 14px 16px 10px;
 }
-.viz-apps .frame:nth-child(1) { width: 60px; height: 80px; animation-delay: 0s; }
-.viz-apps .frame:nth-child(2) { width: 48px; height: 96px; animation-delay: .6s; background: var(--v-accent); }
-.viz-apps .frame:nth-child(3) { width: 60px; height: 70px; animation-delay: 1.2s; }
-@keyframes floatFrame { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* ── Laptop mockup ── */
+.dev-laptop { display: flex; flex-direction: column; align-items: center; animation: devFloat 4.5s ease-in-out infinite; }
+.dev-laptop .dev-screen {
+  width: 136px; height: 86px;
+  background: #141a14;
+  border-radius: 5px 5px 0 0;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  overflow: hidden; position: relative;
+}
+.dev-chin {
+  width: 148px; height: 5px;
+  background: #222824;
+  border-radius: 0 0 4px 4px;
+  border: 1.5px solid rgba(255,255,255,0.07); border-top: none;
+}
+
+/* ── Phone mockup ── */
+.dev-phone { animation: devFloat 3.8s ease-in-out infinite 0.65s; margin-bottom: 7px; }
+.dev-phone .dev-screen {
+  width: 46px; height: 82px;
+  background: #141a14;
+  border-radius: 9px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+/* ── Shared elements ── */
+.dev-bar {
+  height: 11px; width: 100%;
+  background: var(--v-accent);
+  flex-shrink: 0; position: relative;
+}
+.dev-laptop .dev-bar::after {
+  content: ''; position: absolute;
+  right: 8px; top: 50%; transform: translateY(-50%);
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(0,0,0,0.35);
+}
+.dev-content {
+  padding: 7px 8px; display: flex;
+  flex-direction: column; gap: 5px;
+}
+.dev-phone .dev-content { padding: 5px 5px; gap: 5px; }
+
+.dev-row {
+  height: 5px; background: rgba(255,255,255,0.13);
+  border-radius: 2px;
+  animation: devRowPulse 2.8s ease-in-out infinite;
+}
+.dev-row:nth-child(2) { animation-delay: 0.3s; }
+.dev-row:nth-child(3) { animation-delay: 0.6s; }
+.dev-row:nth-child(4) { animation-delay: 0.9s; }
+
+@keyframes devRowPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+/* Cursor parpadeante */
+.dev-cursor {
+  position: absolute; bottom: 10px; left: 55%;
+  width: 6px; height: 10px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 1px;
+  animation: devCur 1.2s step-end infinite;
+}
+@keyframes devCur { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+
+@keyframes devFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
 
 .viz-digit { background: var(--v-card); overflow: hidden; }
 .viz-digit .bar { position: absolute; height: 2px; background: var(--v-accent); animation: slide 3s ease-in-out infinite; }
