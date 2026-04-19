@@ -1,371 +1,294 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Datos ───────────────────────────────────────────────────────────────────
 
-const AGENT_CFG = [
-  { id: "ARCH", label: "Arquitecto", color: "#c792ea" },
-  { id: "CODE", label: "Developer",  color: "#34d399" },
-  { id: "TEST", label: "QA Agent",   color: "#82aaff" },
-  { id: "SHIP", label: "DevOps",     color: "#fb923c" },
+const CX = 200, CY = 158; // centro del SVG
+
+const AGENTS = [
+  {
+    id: "ARIA", emoji: "🎯", role: "Estrategia",
+    color: "#e879f9",
+    cx: 200, cy: 55,
+    tasks: ["Diseñando el producto", "Planificando funciones", "Analizando al usuario", "Creando la experiencia"],
+  },
+  {
+    id: "MAX", emoji: "⚡", role: "Desarrollo",
+    color: "#38bdf8",
+    cx: 52, cy: 158,
+    tasks: ["Construyendo el sistema", "Integrando los pagos", "Creando el panel", "Conectando las APIs"],
+  },
+  {
+    id: "LEA", emoji: "🔍", role: "Calidad",
+    color: "#34d399",
+    cx: 348, cy: 158,
+    tasks: ["Revisando la calidad", "Probando los flujos", "Validando el sistema", "Asegurando todo"],
+  },
+  {
+    id: "NEO", emoji: "🚀", role: "Lanzamiento",
+    color: "#fb923c",
+    cx: 200, cy: 261,
+    tasks: ["Publicando en vivo", "Optimizando la carga", "Configurando la nube", "Desplegando versión"],
+  },
 ] as const;
-type AgentId = "ARCH" | "CODE" | "TEST" | "SHIP";
 
-const SNIPPETS: { agent: AgentId; file: string; lines: string[] }[] = [
-  {
-    agent: "CODE", file: "checkout.service.ts",
-    lines: [
-      "export async function createCheckout(",
-      "  items: CartItem[]",
-      "): Promise<Session> {",
-      "  const s = await stripe",
-      "    .checkout.sessions.create({",
-      "      mode: 'payment',",
-      "      line_items: items.map(toLine),",
-      "      success_url: '/success',",
-      "    });",
-      "  return s;",
-      "}",
-    ],
-  },
-  {
-    agent: "CODE", file: "auth.middleware.ts",
-    lines: [
-      "export const authGuard = async (",
-      "  req: Request,",
-      "  res: Response,",
-      "  next: NextFunction,",
-      ") => {",
-      "  const token = req.headers",
-      "    .authorization?.split(' ')[1];",
-      "  const user = await jwt.verify(token!);",
-      "  req.user = user;",
-      "  next();",
-      "};",
-    ],
-  },
-  {
-    agent: "TEST", file: "checkout.spec.ts",
-    lines: [
-      "describe('CheckoutService', () => {",
-      "  it('creates session', async () => {",
-      "    const items = mockCart(3);",
-      "    const s = await createCheckout(items);",
-      "    expect(s.url).toBeDefined();",
-      "    expect(s.mode).toBe('payment');",
-      "  });",
-      "  it('rejects empty cart', () => {",
-      "    expect(() => createCheckout([]))",
-      "      .toThrow('EmptyCart');",
-      "  });",
-      "});",
-    ],
-  },
-  {
-    agent: "ARCH", file: "schema.prisma",
-    lines: [
-      "model Order {",
-      "  id        String   @id @default(cuid())",
-      "  userId    String",
-      "  status    Status   @default(PENDING)",
-      "  total     Decimal",
-      "  items     Item[]",
-      "  createdAt DateTime @default(now())",
-      "  updatedAt DateTime @updatedAt",
-      "",
-      "  user      User     @relation(...)",
-      "}",
-    ],
-  },
+type AgentId = typeof AGENTS[number]["id"];
+
+const ACTIVITIES = [
+  { agent: "ARIA" as AgentId, color: "#e879f9", text: "Diseñó el flujo de usuario en 2 min" },
+  { agent: "MAX"  as AgentId, color: "#38bdf8", text: "Sistema de pagos integrado y activo" },
+  { agent: "LEA"  as AgentId, color: "#34d399", text: "47 puntos de calidad validados" },
+  { agent: "NEO"  as AgentId, color: "#fb923c", text: "Versión 2.4 publicada sin cortes" },
+  { agent: "ARIA" as AgentId, color: "#e879f9", text: "Experiencia de usuario optimizada" },
+  { agent: "MAX"  as AgentId, color: "#38bdf8", text: "Panel de administración creado" },
+  { agent: "LEA"  as AgentId, color: "#34d399", text: "Todos los flujos críticos probados" },
+  { agent: "NEO"  as AgentId, color: "#fb923c", text: "Desplegado en 3 regiones globales" },
+  { agent: "MAX"  as AgentId, color: "#38bdf8", text: "Chat de atención al cliente listo" },
+  { agent: "ARIA" as AgentId, color: "#e879f9", text: "Estrategia de onboarding definida" },
 ];
 
-const COMMS: { from: AgentId; to: string; msg: string }[] = [
-  { from: "ARCH", to: "CODE", msg: "implementa rate limiting en /api/auth" },
-  { from: "CODE", to: "TEST", msg: "PR #47 listo · 4 archivos" },
-  { from: "TEST", to: "SHIP", msg: "142 tests ✓ · 98.4% coverage" },
-  { from: "SHIP", to: "ALL",  msg: "v2.4.1 live en producción ✓" },
-  { from: "ARCH", to: "CODE", msg: "añade validación con Zod" },
-  { from: "CODE", to: "TEST", msg: "endpoint /checkout implementado" },
-  { from: "TEST", to: "CODE", msg: "edge case falla: carrito vacío" },
-  { from: "CODE", to: "TEST", msg: "fix subido · re-ejecuta suite" },
-  { from: "SHIP", to: "ALL",  msg: "staging OK · pasando a producción" },
-  { from: "ARCH", to: "ALL",  msg: "nueva feature: checkout multi-step" },
-];
+type ActivityRow = typeof ACTIVITIES[0] & { id: number };
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+const CIRCUM = 2 * Math.PI * 38; // radio 38 → circunferencia ~238.9
 
-type CommRow = { from: AgentId; to: string; msg: string; id: number };
-
-interface TypingState {
-  snippetIdx: number;
-  lineIdx: number;
-  charIdx: number;
-  visibleLines: string[];
-  pausing: boolean;
-  nextTickAt: number;
-}
-
-// ─── Syntax highlight ────────────────────────────────────────────────────────
-
-function hi(line: string): string {
-  if (!line.trim()) return "&nbsp;";
-  let s = line
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-  s = s.replace(
-    /\b(export|async|function|const|return|await|model|default|describe|it|expect)\b/g,
-    '<span class="af-kw">$1</span>',
-  );
-  s = s.replace(
-    /\b(string|number|boolean|String|Promise|Request|Response|NextFunction|Decimal|DateTime|Session|CartItem|Status|Item|User)\b/g,
-    '<span class="af-type">$1</span>',
-  );
-  s = s.replace(/('[^']*')/g, '<span class="af-str">$1</span>');
-  s = s.replace(/(@\w+)/g, '<span class="af-deco">$1</span>');
-  return s;
-}
-
-// ─── Component ───────────────────────────────────────────────────────────────
+// ─── Componente ──────────────────────────────────────────────────────────────
 
 export default function OpsConsole() {
-  // Pipeline — derived from pipeT (0-159, ticks every 100ms = 16s cycle)
-  const [pipeT, setPipeT] = useState(0);
+  const [tick,       setTick]       = useState(0);
+  const [taskTick,   setTaskTick]   = useState(0);
+  const [progress,   setProgress]   = useState(44);
+  const [done,       setDone]       = useState(18);
+  const [activities, setActivities] = useState<ActivityRow[]>([]);
 
-  // Comms feed
-  const [comms, setComms] = useState<CommRow[]>([]);
-  const commIdRef  = useRef(0);
-  const commIdxRef = useRef(0);
+  const actIdRef  = useRef(0);
+  const actIdxRef = useRef(0);
 
-  // Stats
-  const [commits,      setCommits]      = useState(24);
-  const [linesWritten, setLinesWritten] = useState(1847);
-
-  // Typing engine via ref + force render (avoids stale closure issues)
-  const [, forceRender] = useState(0);
-  const typingRef = useRef<TypingState>({
-    snippetIdx: 0, lineIdx: 0, charIdx: 0,
-    visibleLines: [], pausing: false,
-    nextTickAt: Date.now() + 600,
-  });
-
-  const codeAreaRef = useRef<HTMLDivElement>(null);
-
-  // ── Pipeline tick
-  useEffect(() => {
-    const id = setInterval(() => setPipeT(t => (t + 1) % 160), 100);
-    return () => clearInterval(id);
-  }, []);
-
-  // ── Commit counter when pipeline goes live
-  useEffect(() => {
-    if (pipeT === 104) setCommits(c => c + 1);
-  }, [pipeT]);
-
-  // ── Typing engine (~60fps polling)
+  // Rota agente activo cada 2.6s
   useEffect(() => {
     const id = setInterval(() => {
-      const s   = typingRef.current;
-      const now = Date.now();
-
-      if (s.pausing) {
-        if (now >= s.nextTickAt) {
-          typingRef.current = {
-            snippetIdx: (s.snippetIdx + 1) % SNIPPETS.length,
-            lineIdx: 0, charIdx: 0, visibleLines: [],
-            pausing: false, nextTickAt: now + 50,
-          };
-          forceRender(n => n + 1);
-        }
-        return;
-      }
-
-      if (now < s.nextTickAt) return;
-
-      const lines = SNIPPETS[s.snippetIdx].lines;
-
-      if (s.lineIdx >= lines.length) {
-        typingRef.current.pausing   = true;
-        typingRef.current.nextTickAt = now + 2400;
-        return;
-      }
-
-      const line = lines[s.lineIdx];
-
-      if (s.charIdx < line.length) {
-        typingRef.current.charIdx++;
-        typingRef.current.nextTickAt = now + 26 + Math.random() * 22;
-        forceRender(n => n + 1);
-      } else {
-        typingRef.current.visibleLines = [...s.visibleLines, line].slice(-20);
-        typingRef.current.lineIdx++;
-        typingRef.current.charIdx   = 0;
-        typingRef.current.nextTickAt = now + (line === "" ? 55 : 140);
-        setLinesWritten(l => l + 1);
-        forceRender(n => n + 1);
-      }
-    }, 16);
+      setTick(t => t + 1);
+      setTaskTick(t => t + 1);
+    }, 2600);
     return () => clearInterval(id);
   }, []);
 
-  // ── Auto-scroll code area
+  // Progress bar se llena lentamente, luego reinicia
   useEffect(() => {
-    if (codeAreaRef.current) {
-      codeAreaRef.current.scrollTop = codeAreaRef.current.scrollHeight;
-    }
-  });
+    const id = setInterval(() => setProgress(p => (p >= 97 ? 44 : p + 1)), 380);
+    return () => clearInterval(id);
+  }, []);
 
-  // ── Comms feed
+  // Contador de tareas completadas
+  useEffect(() => {
+    const id = setInterval(() => setDone(d => d + 1), 4200);
+    return () => clearInterval(id);
+  }, []);
+
+  // Feed de actividad
   useEffect(() => {
     function push() {
-      const c = COMMS[commIdxRef.current % COMMS.length];
-      commIdxRef.current++;
-      setComms(prev => [{ ...c, id: commIdRef.current++ }, ...prev].slice(0, 5));
+      const a = ACTIVITIES[actIdxRef.current % ACTIVITIES.length];
+      actIdxRef.current++;
+      setActivities(prev => [{ ...a, id: actIdRef.current++ }, ...prev].slice(0, 3));
     }
     push();
     const id = setInterval(push, 3400);
     return () => clearInterval(id);
   }, []);
 
-  // ── Derived pipeline state
-  const buildPct    = pipeT < 50 ? pipeT * 2 : 100;
-  const testCount   = pipeT < 52 ? 0 : pipeT < 84 ? Math.floor(((pipeT - 52) / 32) * 142) : 142;
-  const deployPhase = pipeT < 52 ? "build"
-                    : pipeT < 84 ? "test"
-                    : pipeT < 104 ? "deploy"
-                    : "live";
-
-  // ── Typing render state
-  const ts      = typingRef.current;
-  const snippet = SNIPPETS[ts.snippetIdx];
-  const currentLineText =
-    !ts.pausing && ts.lineIdx < snippet.lines.length
-      ? snippet.lines[ts.lineIdx].slice(0, ts.charIdx)
-      : "";
-
-  const activeAgent = snippet.agent;
-  const agentColor  = (id: AgentId) => AGENT_CFG.find(a => a.id === id)!.color;
+  const activeAgent = AGENTS[tick % AGENTS.length];
 
   return (
-    <div id="demo" className="demo-panel af-panel">
-      {/* ── Header */}
+    <div id="demo" className="demo-panel fw-panel">
+
+      {/* Header */}
       <div className="demo-head">
         <div className="dots"><span /><span /><span /></div>
-        <span className="demo-title">forge.hello-human.ai</span>
+        <span className="demo-title">equipo.hello-human.ai</span>
         <span className="demo-live">LIVE</span>
       </div>
 
-      {/* ── Agent bar */}
-      <div className="af-agents">
-        {AGENT_CFG.map(a => (
-          <div
-            key={a.id}
-            className={`af-agent ${a.id === activeAgent ? "active" : "idle"}`}
-            style={{ "--ac": a.color } as React.CSSProperties}
-          >
-            <span className="af-agent-dot" />
-            <span className="af-agent-id">{a.id}</span>
-            <span className="af-agent-lbl">{a.label}</span>
-          </div>
-        ))}
-        <div className="af-mini-stats">
-          <span><b>{commits}</b> commits</span>
-          <span><b>{linesWritten.toLocaleString()}</b> lines</span>
+      {/* Progress row */}
+      <div className="fw-prog-row">
+        <span className="fw-prog-label">Construyendo tu producto</span>
+        <div className="fw-prog-track">
+          <div className="fw-prog-fill" style={{ width: `${progress}%` }} />
         </div>
+        <span className="fw-prog-num">{progress}%</span>
+        <span className="fw-prog-done">{done} tareas ✓</span>
       </div>
 
-      {/* ── Body */}
-      <div className="af-body">
-
-        {/* Terminal */}
-        <div className="af-terminal">
-          <div className="af-term-bar">
-            <span style={{ color: agentColor(activeAgent), fontFamily: "var(--v-mono)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.05em" }}>
-              {activeAgent}-01
-            </span>
-            <span className="af-term-file">{snippet.file}</span>
-          </div>
-          <div className="af-code-area" ref={codeAreaRef}>
-            {ts.visibleLines.map((line, i) => (
-              <div
-                key={i}
-                className="af-line"
-                dangerouslySetInnerHTML={{ __html: hi(line) }}
+      {/* Orbital SVG */}
+      <div className="fw-orbital">
+        <svg
+          style={{ width: "100%", height: "100%", overflow: "visible", display: "block" }}
+          viewBox="0 0 400 316"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <defs>
+            {/* Paths agent → center para animateMotion */}
+            {AGENTS.map(a => (
+              <path key={a.id} id={`fwp-${a.id}`}
+                d={`M ${a.cx} ${a.cy} L ${CX} ${CY}`}
               />
             ))}
-            {!ts.pausing && ts.lineIdx < snippet.lines.length && (
-              <div className="af-line af-line-active">
-                <span dangerouslySetInnerHTML={{ __html: hi(currentLineText) }} />
-                <span className="af-cur" />
-              </div>
-            )}
-          </div>
-        </div>
+          </defs>
 
-        {/* Right panel */}
-        <div className="af-right">
+          {/* Anillos de atmósfera */}
+          <circle cx={CX} cy={CY} r={96}
+            fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1"/>
+          <circle cx={CX} cy={CY} r={140}
+            fill="none" stroke="rgba(255,255,255,0.025)" strokeWidth="1"/>
 
-          {/* Pipeline */}
-          <div className="af-pipe-box">
-            <div className="af-box-label">PIPELINE</div>
-            <div className="af-stages">
-              {/* BUILD */}
-              <div className={`af-stage ${deployPhase === "build" && buildPct > 0 ? "running" : buildPct === 100 ? "done" : ""}`}>
-                <span className="af-stage-dot" />
-                <span className="af-stage-name">BUILD</span>
-                <div className="af-stage-right">
-                  {deployPhase === "build" && buildPct > 0 && buildPct < 100 && (
-                    <div className="af-prog-track">
-                      <div className="af-prog-fill" style={{ width: `${buildPct}%` }} />
-                    </div>
-                  )}
-                  {buildPct === 100 && <span className="af-ok">compilado ✓</span>}
-                </div>
-              </div>
+          {/* Líneas de conexión */}
+          {AGENTS.map(a => (
+            <line key={a.id}
+              x1={a.cx} y1={a.cy} x2={CX} y2={CY}
+              stroke={a.color}
+              strokeWidth={a.id === activeAgent.id ? "2" : "1.5"}
+              strokeOpacity={a.id === activeAgent.id ? "0.55" : "0.16"}
+              strokeDasharray="5 7"
+            />
+          ))}
 
-              {/* TEST */}
-              <div className={`af-stage ${deployPhase === "test" ? "running" : testCount === 142 ? "done" : ""}`}>
-                <span className="af-stage-dot" />
-                <span className="af-stage-name">TEST</span>
-                <div className="af-stage-right">
-                  {deployPhase === "test" && testCount < 142 && (
-                    <span className="af-running">{testCount}/142</span>
-                  )}
-                  {testCount === 142 && <span className="af-ok">142 pasados ✓</span>}
-                </div>
-              </div>
+          {/* Partículas viajando de cada agente al centro */}
+          {AGENTS.flatMap(a =>
+            [0, 0.75, 1.5].map((delay, i) => (
+              <circle key={`fp-${a.id}-${i}`}
+                r={a.id === activeAgent.id ? 4.5 : 2.5}
+                fill={a.color}
+                opacity={a.id === activeAgent.id ? 0.95 : 0.38}
+              >
+                <animateMotion
+                  dur={a.id === activeAgent.id ? "1.4s" : "2.3s"}
+                  begin={`${delay}s`}
+                  repeatCount="indefinite"
+                >
+                  <mpath href={`#fwp-${a.id}`} />
+                </animateMotion>
+              </circle>
+            ))
+          )}
 
-              {/* DEPLOY */}
-              <div className={`af-stage ${deployPhase === "deploy" ? "running" : deployPhase === "live" ? "done" : ""}`}>
-                <span className="af-stage-dot" />
-                <span className="af-stage-name">DEPLOY</span>
-                <div className="af-stage-right">
-                  {deployPhase === "deploy" && <span className="af-running">subiendo…</span>}
-                  {deployPhase === "live" && (
-                    <span className="af-ok">v2.4.{commits % 9 + 1} live ✓</span>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* ── Nodo central (producto) ── */}
+          {/* Pulso exterior */}
+          <circle cx={CX} cy={CY} r={50}
+            fill="rgba(255,255,255,0.025)"
+            stroke="rgba(255,255,255,0.05)" strokeWidth="1">
+            <animate attributeName="r" values="46;54;46" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          {/* Track del progress ring */}
+          <circle cx={CX} cy={CY} r={38}
+            fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="4.5"/>
+          {/* Progress ring */}
+          <circle cx={CX} cy={CY} r={38}
+            fill="none" stroke="white" strokeWidth="4.5"
+            strokeLinecap="round"
+            strokeDasharray={`${(progress / 100) * CIRCUM} ${CIRCUM}`}
+            transform={`rotate(-90 ${CX} ${CY})`}
+            opacity={0.88}
+          />
+          {/* Relleno central */}
+          <circle cx={CX} cy={CY} r={30}
+            fill="#0d1117" stroke="rgba(255,255,255,0.1)" strokeWidth="1"/>
+          {/* Emoji producto */}
+          <text x={CX} y={CY + 1}
+            textAnchor="middle" fontSize="20" dominantBaseline="middle">🚀</text>
+          <text x={CX} y={CY + 20}
+            textAnchor="middle"
+            fontFamily="system-ui, -apple-system, sans-serif"
+            fontSize="7" fontWeight="700"
+            fill="rgba(255,255,255,0.45)"
+            letterSpacing="0.15em"
+          >PRODUCTO</text>
 
-          {/* Comms */}
-          <div className="af-comms-box">
-            <div className="af-box-label">AGENT COMMS</div>
-            <div className="af-comms-feed">
-              {comms.map((c, idx) => (
-                <div key={c.id} className={`af-comm ${idx === 0 ? "fresh" : ""}`}>
-                  <span className="af-comm-from" style={{ color: agentColor(c.from) }}>{c.from}</span>
-                  <span className="af-comm-arr">→</span>
-                  <span className="af-comm-to">{c.to}</span>
-                  <span className="af-comm-msg">{c.msg}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* ── Agentes ── */}
+          {AGENTS.map(a => {
+            const isActive = a.id === activeAgent.id;
+            const task     = a.tasks[taskTick % a.tasks.length];
 
-        </div>
+            // Posición de etiquetas según posición del agente
+            const isTop    = a.id === "ARIA";
+            const isBottom = a.id === "NEO";
+            const isLeft   = a.id === "MAX";
+
+            const labelX      = isLeft   ? a.cx + 30 : a.id === "LEA" ? a.cx - 30 : a.cx;
+            const labelAnchor = isLeft   ? "start"   : a.id === "LEA" ? "end"      : "middle";
+            const idY         = isTop    ? a.cy - 26 : isBottom ? a.cy + 30 : a.cy - 8;
+            const roleY       = isTop    ? a.cy - 13 : isBottom ? a.cy + 42 : a.cy + 6;
+            const taskY       = isTop    ? a.cy - 38 : isBottom ? a.cy + 54 : a.cy + 20;
+
+            return (
+              <g key={a.id}>
+                {/* Glow pulsante cuando activo */}
+                <circle cx={a.cx} cy={a.cy} r={isActive ? 28 : 20}
+                  fill={a.color}
+                  opacity={isActive ? 0.18 : 0.07}
+                  style={{ transition: "r 0.5s, opacity 0.5s" }}>
+                  {isActive && <animate attributeName="r"       values="24;34;24" dur="2s" repeatCount="indefinite"/>}
+                  {isActive && <animate attributeName="opacity" values="0.18;0.3;0.18" dur="2s" repeatCount="indefinite"/>}
+                </circle>
+
+                {/* Círculo principal */}
+                <circle cx={a.cx} cy={a.cy} r={19}
+                  fill={a.color}
+                  opacity={isActive ? 1 : 0.42}
+                  style={{ transition: "opacity 0.6s" }}
+                />
+
+                {/* Emoji del agente */}
+                <text x={a.cx} y={a.cy + 1}
+                  textAnchor="middle"
+                  fontSize="14"
+                  dominantBaseline="middle"
+                  opacity={isActive ? 1 : 0.65}
+                >{a.emoji}</text>
+
+                {/* Nombre del agente */}
+                <text x={labelX} y={idY}
+                  textAnchor={labelAnchor}
+                  fontFamily="system-ui, -apple-system, sans-serif"
+                  fontSize="10.5" fontWeight="800"
+                  fill={a.color}
+                  opacity={isActive ? 1 : 0.5}
+                  style={{ transition: "opacity 0.6s" }}
+                >{a.id}</text>
+
+                {/* Rol */}
+                <text x={labelX} y={roleY}
+                  textAnchor={labelAnchor}
+                  fontFamily="system-ui, -apple-system, sans-serif"
+                  fontSize="8.5"
+                  fill="rgba(255,255,255,0.38)"
+                >{a.role}</text>
+
+                {/* Tarea activa (solo agente activo) */}
+                {isActive && (
+                  <text x={labelX} y={taskY}
+                    textAnchor={labelAnchor}
+                    fontFamily="system-ui, -apple-system, sans-serif"
+                    fontSize="8"
+                    fill="rgba(255,255,255,0.78)"
+                  >{task}</text>
+                )}
+              </g>
+            );
+          })}
+        </svg>
       </div>
+
+      {/* Feed de actividad */}
+      <div className="fw-feed">
+        {activities.map((a, idx) => (
+          <div key={a.id} className={`fw-act ${idx === 0 ? "fresh" : ""}`}>
+            <span className="fw-act-check">✓</span>
+            <span className="fw-act-who" style={{ color: a.color }}>{a.agent}</span>
+            <span className="fw-act-msg">{a.text}</span>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }

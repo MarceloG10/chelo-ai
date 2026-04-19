@@ -694,6 +694,69 @@ footer { padding: 48px 0; border-top: 1px solid color-mix(in srgb, var(--v-ink) 
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
+/* ============ FORGE WORLD (orbital panel) ============ */
+.fw-panel { overflow: hidden; display: flex; flex-direction: column; }
+
+.fw-prog-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 6px 12px; flex-shrink: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--v-ink) 10%, transparent);
+}
+.fw-prog-label {
+  font-family: var(--v-mono); font-size: 10px;
+  color: var(--v-muted); white-space: nowrap;
+}
+.fw-prog-track {
+  flex: 1; height: 4px;
+  background: color-mix(in srgb, var(--v-ink) 10%, transparent);
+  border-radius: 2px; overflow: hidden;
+}
+.fw-prog-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--v-accent), #a78bfa);
+  transition: width 0.38s ease;
+}
+.fw-prog-num {
+  font-family: var(--v-mono); font-size: 11px; font-weight: 700;
+  color: var(--v-ink); min-width: 32px; text-align: right;
+}
+.fw-prog-done {
+  font-family: var(--v-mono); font-size: 10px;
+  color: var(--v-accent); white-space: nowrap;
+}
+
+.fw-orbital {
+  flex: 1; min-height: 0;
+  background: #090c10;
+  border-radius: 12px;
+  padding: 10px 6px;
+  margin: 6px 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.fw-feed {
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 6px 4px 2px; flex-shrink: 0;
+}
+.fw-act {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border-radius: 8px;
+  background: color-mix(in srgb, var(--v-ink) 3%, transparent);
+  opacity: 0.35; transition: opacity 0.4s;
+}
+.fw-act.fresh { opacity: 1; animation: fwActIn 0.3s ease both; }
+.fw-act:nth-child(2) { opacity: 0.6; }
+@keyframes fwActIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: none; }
+}
+.fw-act-check { color: #34d399; font-size: 12px; flex-shrink: 0; font-weight: 700; }
+.fw-act-who   { font-family: var(--v-mono); font-size: 10px; font-weight: 700; flex-shrink: 0; }
+.fw-act-msg   {
+  font-family: var(--v-mono); font-size: 10px; color: var(--v-muted);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
 /* terminal scanlines */
 html[data-variant="terminal"] body::after {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
