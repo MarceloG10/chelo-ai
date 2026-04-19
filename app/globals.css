@@ -920,8 +920,9 @@ html[data-variant="vapor"] .mob-link { font-family: var(--v-sans); font-weight: 
   .fw-prog-label { display: none; }
   .fw-prog-row { gap: 8px; }
 
-  /* Hero stats */
-  .hero-meta { margin-top: 36px; gap: 16px; }
+  /* Hero stats — 3 en una fila siempre */
+  .hero-meta { margin-top: 36px; gap: 12px; flex-wrap: nowrap; justify-content: space-between; }
+  .hero-meta > div { flex: 1; min-width: 0; }
   .hero-meta b { font-size: 20px; }
 
   /* Service cards */
@@ -949,11 +950,10 @@ html[data-variant="vapor"] .mob-link { font-family: var(--v-sans); font-weight: 
 }
 
 @media (max-width: 420px) {
-  /* Hero meta — 3 items en una sola fila */
-  .hero-meta { flex-wrap: nowrap; gap: 0; justify-content: space-between; }
-  .hero-meta > div { flex: 1 1 0; min-width: 0; }
-  .hero-meta b { font-size: 17px; }
-  .hero-meta { font-size: 10px; }
+  /* Hero meta — solo números, sin descripción (muy pequeño) */
+  .hero-meta { gap: 0; }
+  .hero-meta > div { overflow: hidden; max-height: 26px; }
+  .hero-meta b { font-size: 16px; margin-bottom: 0; }
 
   /* Panel aún más compacto */
   .demo-panel { min-height: 380px; }
