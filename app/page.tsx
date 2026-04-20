@@ -9,11 +9,13 @@ import Footer from "@/components/Footer";
 import RevealInit from "@/components/RevealInit";
 import CoordsParallax from "@/components/CoordsParallax";
 import ParticleBackground from "@/components/ParticleBackground";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function Home() {
   return (
     <>
       <ParticleBackground />
+      <WhatsAppButton />
       <RevealInit />
       <CoordsParallax />
       <Navbar />
