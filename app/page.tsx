@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MarqueeSection from "@/components/MarqueeSection";
 import Services from "@/components/Services";
-import AgenteLive from "@/components/AgenteLive";
 import Builder from "@/components/Builder";
 import Projects from "@/components/Projects";
 import Process from "@/components/Process";
@@ -20,7 +19,6 @@ export default function Home() {
       <Hero />
       <MarqueeSection />
       <Services />
-      <AgenteLive />
       <Builder />
       <Projects />
       <Process />

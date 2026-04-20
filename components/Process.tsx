@@ -3,7 +3,7 @@ export default function Process() {
     <section className="section" id="proceso" style={{ paddingTop: 40 }}>
       <div className="wrap">
         <div className="section-head reveal">
-          <div className="section-label">[ 05 · Cómo trabajamos contigo ]</div>
+          <div className="section-label">[ 04 · Cómo trabajamos contigo ]</div>
           <h2 className="section-h2">De la idea al deploy en <em>semanas</em>, no meses.</h2>
         </div>
         <div className="process reveal">

@@ -159,7 +159,7 @@ export default function Builder() {
     <section className="section" id="builder" style={{ paddingTop: 40 }}>
       <div className="wrap">
         <div className="section-head reveal">
-          <div className="section-label">[ 03 · Cómo lo construimos ]</div>
+          <div className="section-label">[ 02 · Cómo lo construimos ]</div>
           <h2 className="section-h2">Cuatro pasos. <em>Siete días.</em></h2>
         </div>
 
