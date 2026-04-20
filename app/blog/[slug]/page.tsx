@@ -4,6 +4,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import BlogCover from "@/components/BlogCover";
 import ReadingProgress from "@/components/ReadingProgress";
+import ShareButtons from "@/components/ShareButtons";
 import remarkGfm from "remark-gfm";
 import type { Metadata } from "next";
 
@@ -165,6 +166,8 @@ export default async function PostPage({ params }: Props) {
         <div className="prose">
           <MDXRemote source={post.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
         </div>
+
+        <ShareButtons title={post.title} url={`https://www.hhtech.dev/blog/${slug}`} />
 
         {/* ── FOOTER CTA ───────────────────────────────────────────── */}
         <div style={{
