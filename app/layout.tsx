@@ -42,13 +42,13 @@ export const metadata: Metadata = {
     siteName: "Hello Human",
     type: "website",
     locale: "es_ES",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: ogTitle }],
+    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: ogTitle }],
   },
   twitter: {
     card: "summary_large_image",
     title: ogTitle,
     description: ogDescription,
-    images: ["/opengraph-image"],
+    images: [`${siteUrl}/opengraph-image`],
   },
   robots: {
     index: true,
