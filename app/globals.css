@@ -1009,12 +1009,24 @@ html[data-variant="terminal"] body::after {
 .prose pre { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px; overflow-x: auto; margin: 24px 0; }
 .prose pre code { background: none; padding: 0; color: rgba(255,255,255,0.8); }
 .prose hr { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 40px 0; }
-.prose table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 14px; }
-.prose thead tr { border-bottom: 1px solid rgba(255,255,255,0.12); }
-.prose th { text-align: left; padding: 10px 16px; color: rgba(255,255,255,0.5); font-family: var(--v-mono); font-size: 11px; letter-spacing: 0.08em; font-weight: 500; }
-.prose td { padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.75); }
-.prose tr:first-child td { color: rgba(255,255,255,0.9); font-weight: 600; }
-.prose tbody tr:hover { background: rgba(255,255,255,0.02); }
+.prose table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 36px 0; font-size: 14px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); }
+/* Header */
+.prose thead { background: rgba(255,255,255,0.04); }
+.prose th { padding: 14px 20px; font-family: var(--v-mono); font-size: 11px; letter-spacing: 0.1em; font-weight: 500; color: rgba(255,255,255,0.35); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.prose th:first-child { text-align: left; }
+/* Agente IA column header */
+.prose th:nth-child(3) { color: #b6ff3c; background: rgba(182,255,60,0.05); border-left: 1px solid rgba(182,255,60,0.12); }
+/* Rows */
+.prose td { padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); text-align: center; vertical-align: middle; font-size: 15px; }
+.prose td:first-child { text-align: left; color: rgba(255,255,255,0.8); font-size: 14px; }
+/* Chatbot column — muted */
+.prose td:nth-child(2) { color: rgba(255,255,255,0.25); }
+/* Agente IA column — highlighted */
+.prose td:nth-child(3) { color: #b6ff3c; background: rgba(182,255,60,0.03); border-left: 1px solid rgba(182,255,60,0.08); font-weight: 600; }
+.prose tbody tr:last-child td { border-bottom: none; }
+.prose tbody tr:hover td:first-child { color: #fff; }
+.prose tbody tr:hover td:nth-child(2) { color: rgba(255,255,255,0.35); }
+.prose tbody tr:hover td:nth-child(3) { background: rgba(182,255,60,0.06); }
 
 /* ============ BLOG CARDS ============ */
 .blog-card { border-radius: 20px; overflow: hidden; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, border-color 0.3s ease; cursor: pointer; }
