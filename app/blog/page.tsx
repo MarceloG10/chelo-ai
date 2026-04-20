@@ -19,7 +19,7 @@ export default function BlogPage() {
       <div style={{ position: "fixed", width: 400, height: 400, borderRadius: "50%", background: "rgba(99,102,241,0.06)", filter: "blur(80px)", bottom: 0, right: 0, pointerEvents: "none", zIndex: 0 }} />
 
       <div style={{ position: "relative", zIndex: 1 }}>
-        <div className="wrap" style={{ paddingTop: 100, paddingBottom: 100 }}>
+        <div className="wrap blog-wrap">
 
           {/* Header */}
           <div style={{ marginBottom: 72 }}>
