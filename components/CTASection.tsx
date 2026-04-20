@@ -95,16 +95,16 @@ export default function CTASection() {
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
             <div className="form-row">
-              <label>Nombre</label>
-              <input name="name" required placeholder="¿Cómo te llamas?" />
+              <label htmlFor="contact-name">Nombre</label>
+              <input id="contact-name" name="name" required placeholder="¿Cómo te llamas?" />
             </div>
             <div className="form-row">
-              <label>Email</label>
-              <input name="email" type="email" required placeholder="tu@email.com" />
+              <label htmlFor="contact-email">Email</label>
+              <input id="contact-email" name="email" type="email" required placeholder="tu@email.com" />
             </div>
             <div className="form-row">
-              <label>¿Qué necesitas?</label>
-              <select name="service">
+              <label htmlFor="contact-service">¿Qué necesitas?</label>
+              <select id="contact-service" name="service">
                 <option>Un agente de IA</option>
                 <option>Una app o web</option>
                 <option>Digitalizar un proceso</option>
@@ -112,8 +112,8 @@ export default function CTASection() {
               </select>
             </div>
             <div className="form-row">
-              <label>Cuéntame más (opcional)</label>
-              <textarea name="msg" placeholder="Describe brevemente tu proyecto…" />
+              <label htmlFor="contact-msg">Cuéntame más (opcional)</label>
+              <textarea id="contact-msg" name="msg" placeholder="Describe brevemente tu proyecto…" />
             </div>
             <div className="form-actions">
               <button

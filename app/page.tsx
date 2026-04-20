@@ -19,12 +19,14 @@ export default function Home() {
       <RevealInit />
       <CoordsParallax />
       <Navbar />
-      <Hero />
-      <MarqueeSection />
-      <Services />
-      <Projects />
-      <Process />
-      <CTASection />
+      <main>
+        <Hero />
+        <MarqueeSection />
+        <Services />
+        <Projects />
+        <Process />
+        <CTASection />
+      </main>
       <Footer />
     </>
   );
