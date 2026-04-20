@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const siteUrl = "https://chelo.hhtech.dev";
+const siteUrl = "https://www.hhtech.dev";
 const ogTitle = "Hello Human · Agentes IA, Apps y Dashboards a velocidad imposible";
 const ogDescription =
   "Construimos agentes de IA, apps y dashboards que antes tomaban meses, ahora en días. Humanos + IA. Sin equipos gigantes. Sin burocracia.";

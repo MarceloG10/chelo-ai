@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const siteUrl = "https://chelo.hhtech.dev";
+const siteUrl = "https://www.hhtech.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
