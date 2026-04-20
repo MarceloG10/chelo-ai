@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import BlogCover from "@/components/BlogCover";
+import ReadingProgress from "@/components/ReadingProgress";
 import remarkGfm from "remark-gfm";
 import type { Metadata } from "next";
 
@@ -54,6 +55,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <main style={{ background: "#080a0e", minHeight: "100vh", color: "#fff" }}>
+      <ReadingProgress accent={accent} />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <div style={{ position: "relative", height: "clamp(360px, 48vw, 520px)", overflow: "hidden" }}>
