@@ -2,7 +2,6 @@ import { ImageResponse } from "next/og";
 import { getPostBySlug } from "@/lib/posts";
 import { NextRequest } from "next/server";
 
-export const runtime = "edge";
 
 function getAccent(tags: string[]): { a: string; b: string } {
   const map: Record<string, { a: string; b: string }> = {
