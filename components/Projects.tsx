@@ -3,7 +3,7 @@ export default function Projects() {
     <section className="section" id="proyectos" style={{ paddingTop: 40 }}>
       <div className="wrap">
         <div className="section-head reveal">
-          <div className="section-label">[ 03 · En construcción ]</div>
+          <div className="section-label">[ 02 · En construcción ]</div>
           <h2 className="section-h2">Tres proyectos. <em>Todos</em> cocinándose ahora mismo.</h2>
         </div>
 

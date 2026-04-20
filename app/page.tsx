@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MarqueeSection from "@/components/MarqueeSection";
 import Services from "@/components/Services";
-import Builder from "@/components/Builder";
 import Projects from "@/components/Projects";
 import Process from "@/components/Process";
 import CTASection from "@/components/CTASection";
@@ -19,7 +18,6 @@ export default function Home() {
       <Hero />
       <MarqueeSection />
       <Services />
-      <Builder />
       <Projects />
       <Process />
       <CTASection />
