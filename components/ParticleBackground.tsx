@@ -21,7 +21,7 @@ export default function ParticleBackground() {
     const W = () => window.innerWidth;
     const H = () => window.innerHeight;
 
-    const NODE_COUNT = 18;
+    const NODE_COUNT = 9;
     const nodes = Array.from({ length: NODE_COUNT }, () => ({
       x: Math.random() * W(),
       y: Math.random() * H(),
