@@ -998,9 +998,11 @@ html[data-variant="terminal"] body::after {
 .prose strong { color: #fff; font-weight: 700; }
 .prose em { color: #b6ff3c; font-style: normal; }
 .prose a { color: #b6ff3c; text-underline-offset: 3px; }
-.prose ul { padding-left: 20px; margin: 0 0 20px; display: flex; flex-direction: column; gap: 8px; }
+.prose ul { padding-left: 0; margin: 0 0 20px; display: flex; flex-direction: column; gap: 8px; list-style: none; }
 .prose ol { padding-left: 20px; margin: 0 0 20px; display: flex; flex-direction: column; gap: 8px; }
 .prose li { color: rgba(255,255,255,0.75); }
+.prose ul li { padding-left: 20px; position: relative; }
+.prose ul li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: #b6ff3c; }
 .prose blockquote { border-left: 3px solid #b6ff3c; margin: 32px 0; padding: 16px 24px; background: rgba(182,255,60,0.05); border-radius: 0 12px 12px 0; }
 .prose blockquote p { margin: 0; color: rgba(255,255,255,0.7); font-style: italic; }
 .prose code { font-family: var(--v-mono); font-size: 13px; background: rgba(255,255,255,0.07); padding: 2px 7px; border-radius: 5px; color: #b6ff3c; }
