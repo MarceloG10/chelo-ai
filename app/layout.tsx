@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Geist, JetBrains_Mono, Space_Grotesk, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
-const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk", display: "swap" });
-const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap", preload: true });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "optional", preload: false });
+const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk", display: "optional", preload: false });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "optional", preload: false });
 
 const siteUrl = "https://www.hhtech.dev";
 const ogTitle = "Hello Human · Agentes IA, Apps y Dashboards a velocidad imposible";
