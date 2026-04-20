@@ -5,7 +5,6 @@ const WA_LINK = "https://wa.me/34617700922";
 
 const navLinks = [
   { label: "Servicios",  href: "#servicios" },
-  { label: "Demo",       href: "#agente" },
   { label: "Proyectos",  href: "#proyectos" },
   { label: "Proceso",    href: "#proceso" },
   { label: "Contacto",   href: "#contacto" },
