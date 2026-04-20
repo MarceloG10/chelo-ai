@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
+import { Geist, JetBrains_Mono, Space_Grotesk, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk", display: "swap" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
 
 const siteUrl = "https://www.hhtech.dev";
 const ogTitle = "Hello Human · Agentes IA, Apps y Dashboards a velocidad imposible";
@@ -110,14 +116,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="es" data-variant="terminal">
+    <html lang="es" data-variant="terminal" className={`${geist.variable} ${mono.variable} ${grotesk.variable} ${serif.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Geist:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-B252CH7J7L" />
         <script dangerouslySetInnerHTML={{ __html: `

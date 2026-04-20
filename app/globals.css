@@ -10,9 +10,9 @@
   --v-accent: #ff4713;
   --v-accent-ink: #fff;
   --v-card: #ebe5d6;
-  --v-serif: 'Instrument Serif', Georgia, serif;
-  --v-sans: 'Geist', 'Space Grotesk', system-ui, sans-serif;
-  --v-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --v-serif: var(--font-serif), Georgia, serif;
+  --v-sans: var(--font-geist), var(--font-grotesk), system-ui, sans-serif;
+  --v-mono: var(--font-mono), ui-monospace, monospace;
 }
 
 html[data-variant="terminal"] {
