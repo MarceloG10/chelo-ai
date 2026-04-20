@@ -167,8 +167,6 @@ export default async function PostPage({ params }: Props) {
           <MDXRemote source={post.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
         </div>
 
-        <ShareButtons title={post.title} url={`https://www.hhtech.dev/blog/${slug}`} />
-
         {/* ── FOOTER CTA ───────────────────────────────────────────── */}
         <div style={{
           marginTop: 80,
@@ -197,7 +195,7 @@ export default async function PostPage({ params }: Props) {
             </div>
 
             <p style={{ fontSize: "clamp(18px,2.5vw,24px)", fontWeight: 700, marginBottom: 8, letterSpacing: "-0.02em" }}>
-              ¿Querés implementar esto en tu negocio?
+              ¿Quieres implementar esto en tu negocio?
             </p>
             <p style={{ color: "rgba(255,255,255,0.45)", marginBottom: 28, fontSize: 15, lineHeight: 1.55 }}>
               Construimos agentes, apps y dashboards en semanas.
@@ -215,6 +213,8 @@ export default async function PostPage({ params }: Props) {
             </a>
           </div>
         </div>
+
+        <ShareButtons title={post.title} url={`https://www.hhtech.dev/blog/${slug}`} />
 
         {/* Back link */}
         <div style={{ marginTop: 48, textAlign: "center" }}>
