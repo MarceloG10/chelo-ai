@@ -8,10 +8,12 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import RevealInit from "@/components/RevealInit";
 import CoordsParallax from "@/components/CoordsParallax";
+import ParticleBackground from "@/components/ParticleBackground";
 
 export default function Home() {
   return (
     <>
+      <ParticleBackground />
       <RevealInit />
       <CoordsParallax />
       <Navbar />
