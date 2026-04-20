@@ -53,7 +53,7 @@ export default function BlogPage() {
                     {/* Cover image */}
                     <div className="blog-card-cover">
                       <img
-                        src={`/api/cover/${featured.slug}`}
+                        src={`/api/cover/${featured.slug}?v=2`}
                         alt={featured.title}
                         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                       />
@@ -94,7 +94,7 @@ export default function BlogPage() {
                       <article className="blog-card">
                         <div className="blog-card-cover blog-card-cover-sm">
                           <img
-                            src={`/api/cover/${post.slug}`}
+                            src={`/api/cover/${post.slug}?v=2`}
                             alt={post.title}
                             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                           />
