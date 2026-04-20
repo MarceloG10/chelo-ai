@@ -122,7 +122,7 @@ export default function OpsConsole() {
       <div className="fw-orbital">
         <svg
           style={{ width: "100%", height: "100%", overflow: "visible", display: "block" }}
-          viewBox="0 0 400 316"
+          viewBox="-40 -20 480 356"
           preserveAspectRatio="xMidYMid meet"
         >
           <defs>
@@ -212,12 +212,14 @@ export default function OpsConsole() {
             const isTop    = a.id === "ARIA";
             const isBottom = a.id === "NEO";
             const isLeft   = a.id === "MAX";
+            const isRight  = a.id === "LEA";
 
-            const labelX      = isLeft   ? a.cx + 30 : a.id === "LEA" ? a.cx - 30 : a.cx;
-            const labelAnchor = isLeft   ? "start"   : a.id === "LEA" ? "end"      : "middle";
-            const idY         = isTop    ? a.cy - 26 : isBottom ? a.cy + 30 : a.cy - 8;
-            const roleY       = isTop    ? a.cy - 13 : isBottom ? a.cy + 42 : a.cy + 6;
-            const taskY       = isTop    ? a.cy - 38 : isBottom ? a.cy + 54 : a.cy + 20;
+            // Labels siempre hacia el exterior (lejos de las líneas al centro)
+            const labelX      = isLeft  ? a.cx - 26 : isRight ? a.cx + 26 : a.cx;
+            const labelAnchor = isLeft  ? "end"      : isRight ? "start"    : "middle";
+            const idY         = isTop   ? a.cy - 36 : isBottom ? a.cy + 26 : a.cy - 4;
+            const roleY       = isTop   ? a.cy - 24 : isBottom ? a.cy + 38 : a.cy + 9;
+            const taskY       = isTop   ? a.cy - 50 : isBottom ? a.cy + 50 : a.cy + 22;
 
             return (
               <g key={a.id}>
