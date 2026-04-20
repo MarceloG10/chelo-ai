@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
+import BlogCover from "@/components/BlogCover";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -52,11 +53,7 @@ export default function BlogPage() {
                   <article className="blog-card blog-card-featured">
                     {/* Cover image */}
                     <div className="blog-card-cover">
-                      <img
-                        src={`/api/cover/${featured.slug}?v=2`}
-                        alt={featured.title}
-                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                      />
+                      <BlogCover tags={featured.tags} />
                     </div>
                     <div className="blog-card-body">
                       <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
@@ -93,11 +90,7 @@ export default function BlogPage() {
                     <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration: "none" }}>
                       <article className="blog-card">
                         <div className="blog-card-cover blog-card-cover-sm">
-                          <img
-                            src={`/api/cover/${post.slug}?v=2`}
-                            alt={post.title}
-                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                          />
+                          <BlogCover tags={post.tags} />
                         </div>
                         <div className="blog-card-body">
                           <div style={{ display: "flex", gap: 6, marginBottom: 12, flexWrap: "wrap" }}>
