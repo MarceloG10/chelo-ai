@@ -449,7 +449,7 @@ footer { padding: 48px 0; border-top: 1px solid color-mix(in srgb, var(--v-ink) 
 .hero-deco.d2 { top: 124px; right: 40px; z-index: 0; }
 
 .ops-col { display: flex; flex-direction: column; gap: 22px; }
-.ops-coords { font-family: var(--v-mono); font-size: 11px; color: var(--v-muted); opacity: 0.6; text-align: right; transition: transform .25s cubic-bezier(.2,.7,.2,1); will-change: transform; padding-top: 6px; }
+.ops-coords { font-family: var(--v-mono); font-size: 11px; color: rgba(255,255,255,0.45); text-align: right; transition: transform .25s cubic-bezier(.2,.7,.2,1); will-change: transform; padding-top: 6px; }
 @media (max-width: 960px) { .ops-coords { display: none; } }
 
 /* Demo activo (default): ocultar ambas decoraciones absolutas */
@@ -846,7 +846,7 @@ footer { padding: 48px 0; border-top: 1px solid color-mix(in srgb, var(--v-ink) 
 .fw-act-check { color: #34d399; font-size: 12px; flex-shrink: 0; font-weight: 700; }
 .fw-act-who   { font-family: var(--v-mono); font-size: 10px; font-weight: 700; flex-shrink: 0; }
 .fw-act-msg   {
-  font-family: var(--v-mono); font-size: 10px; color: var(--v-muted);
+  font-family: var(--v-mono); font-size: 10px; color: rgba(255,255,255,0.55);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 

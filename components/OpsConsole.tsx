@@ -8,7 +8,7 @@ const CX = 200, CY = 158; // centro del SVG
 const AGENTS = [
   {
     id: "ARIA", emoji: "🎯", role: "Estrategia",
-    color: "#e879f9",
+    color: "#f0abfc",
     cx: 200, cy: 55,
     tasks: ["Diseñando el producto", "Planificando funciones", "Analizando al usuario", "Creando la experiencia"],
   },
@@ -35,16 +35,16 @@ const AGENTS = [
 type AgentId = typeof AGENTS[number]["id"];
 
 const ACTIVITIES = [
-  { agent: "ARIA" as AgentId, color: "#e879f9", text: "Diseñó el flujo de usuario en 2 min" },
+  { agent: "ARIA" as AgentId, color: "#f0abfc", text: "Diseñó el flujo de usuario en 2 min" },
   { agent: "MAX"  as AgentId, color: "#38bdf8", text: "Sistema de pagos integrado y activo" },
   { agent: "LEA"  as AgentId, color: "#34d399", text: "47 puntos de calidad validados" },
   { agent: "NEO"  as AgentId, color: "#fb923c", text: "Versión 2.4 publicada sin cortes" },
-  { agent: "ARIA" as AgentId, color: "#e879f9", text: "Experiencia de usuario optimizada" },
+  { agent: "ARIA" as AgentId, color: "#f0abfc", text: "Experiencia de usuario optimizada" },
   { agent: "MAX"  as AgentId, color: "#38bdf8", text: "Panel de administración creado" },
   { agent: "LEA"  as AgentId, color: "#34d399", text: "Todos los flujos críticos probados" },
   { agent: "NEO"  as AgentId, color: "#fb923c", text: "Desplegado en 3 regiones globales" },
   { agent: "MAX"  as AgentId, color: "#38bdf8", text: "Chat de atención al cliente listo" },
-  { agent: "ARIA" as AgentId, color: "#e879f9", text: "Estrategia de onboarding definida" },
+  { agent: "ARIA" as AgentId, color: "#f0abfc", text: "Estrategia de onboarding definida" },
 ];
 
 type ActivityRow = typeof ACTIVITIES[0] & { id: number };
