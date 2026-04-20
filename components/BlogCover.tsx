@@ -28,7 +28,7 @@ function hexToRgb(hex: string) {
 // ── Neural network animation ──────────────────────────────────────────────────
 function drawNeuralNet(canvas: HTMLCanvasElement, a: string, b: string, bg: string) {
   const ctx = canvas.getContext("2d")!;
-  const W = canvas.width, H = canvas.height;
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
   const ca = hexToRgb(a), cb = hexToRgb(b);
 
   const NODE_COUNT = 14;
@@ -135,7 +135,7 @@ function drawNeuralNet(canvas: HTMLCanvasElement, a: string, b: string, bg: stri
 // ── Particle field (default / SEO / apps) ────────────────────────────────────
 function drawParticles(canvas: HTMLCanvasElement, a: string, b: string, bg: string) {
   const ctx = canvas.getContext("2d")!;
-  const W = canvas.width, H = canvas.height;
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
   const ca = hexToRgb(a), cb = hexToRgb(b);
 
   const pts = Array.from({ length: 80 }, () => ({
@@ -214,7 +214,7 @@ function drawParticles(canvas: HTMLCanvasElement, a: string, b: string, bg: stri
 // ── Dashboard bars ───────────────────────────────────────────────────────────
 function drawDashboard(canvas: HTMLCanvasElement, a: string, b: string, bg: string) {
   const ctx = canvas.getContext("2d")!;
-  const W = canvas.width, H = canvas.height;
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
   const ca = hexToRgb(a), cb = hexToRgb(b);
 
   const BAR_COUNT = 9;
