@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import BlogCover from "@/components/BlogCover";
+import remarkGfm from "remark-gfm";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -152,7 +153,7 @@ export default async function PostPage({ params }: Props) {
       {/* ── ARTICLE CONTENT ──────────────────────────────────────────── */}
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "52px clamp(20px,5vw,40px) 100px" }}>
         <div className="prose">
-          <MDXRemote source={post.content} />
+          <MDXRemote source={post.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
         </div>
 
         {/* ── FOOTER CTA ───────────────────────────────────────────── */}
