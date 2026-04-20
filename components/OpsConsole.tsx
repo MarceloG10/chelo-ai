@@ -217,9 +217,9 @@ export default function OpsConsole() {
             // Labels siempre hacia el exterior (lejos de las líneas al centro)
             const labelX      = isLeft  ? a.cx - 26 : isRight ? a.cx + 26 : a.cx;
             const labelAnchor = isLeft  ? "end"      : isRight ? "start"    : "middle";
-            const idY         = isTop   ? a.cy - 36 : isBottom ? a.cy + 26 : a.cy - 4;
-            const roleY       = isTop   ? a.cy - 24 : isBottom ? a.cy + 38 : a.cy + 9;
-            const taskY       = isTop   ? a.cy - 50 : isBottom ? a.cy + 50 : a.cy + 22;
+            const idY         = isTop   ? a.cy - 36 : isBottom ? a.cy + 30 : a.cy - 4;
+            const roleY       = isTop   ? a.cy - 24 : isBottom ? a.cy + 43 : a.cy + 9;
+            const taskY       = isTop   ? a.cy - 50 : isBottom ? a.cy + 56 : a.cy + 22;
 
             return (
               <g key={a.id}>
