@@ -932,8 +932,9 @@ html[data-variant="vapor"] .mob-link { font-family: var(--v-sans); font-weight: 
   .cta-section { padding: 80px 0; }
   .cta-inner { padding: 40px 24px; gap: 32px; }
 
-  /* Demo panel — más bajo en mobile */
-  .demo-panel { min-height: 420px; max-height: 500px; }
+  /* Demo panel — más alto en mobile para que el orbital sea legible */
+  .demo-panel { min-height: 520px; max-height: 620px; }
+  .fw-orbital { min-height: 320px; }
 
   /* Orbital — quitar label largo */
   .fw-prog-label { display: none; }
@@ -974,7 +975,8 @@ html[data-variant="vapor"] .mob-link { font-family: var(--v-sans); font-weight: 
   .hero-meta b { font-size: 16px; }
 
   /* Panel aún más compacto */
-  .demo-panel { min-height: 380px; }
+  .demo-panel { min-height: 480px; }
+  .fw-orbital { min-height: 280px; }
 
   /* Botones */
   .hero-actions { flex-direction: column; }
