@@ -19,28 +19,21 @@ export default function RevealInit() {
       });
     });
 
-    // ── Hero left: animar elementos en secuencia al cargar ───────────────────
-    const heroLeft = document.querySelector(".hero-left");
-    if (heroLeft) {
+    // ── Hero: animar elementos en secuencia al cargar ───────────────────────
+    const heroFull = document.querySelector(".hero-full");
+    if (heroFull) {
       const slots = [
-        heroLeft.querySelector(".eyebrow"),
-        heroLeft.querySelector(".hero-h1"),
-        heroLeft.querySelector(".hero-sub"),
-        heroLeft.querySelector(".hero-actions"),
-        heroLeft.querySelector(".hero-meta"),
+        heroFull.querySelector(".eyebrow"),
+        heroFull.querySelector(".hero-h1"),
+        heroFull.querySelector(".hero-sub"),
+        heroFull.querySelector(".hero-actions"),
+        heroFull.querySelector(".hero-meta"),
       ];
       slots.forEach((el, i) => {
         if (!el) return;
         el.classList.add("reveal");
         (el as HTMLElement).style.transitionDelay = `${i * 0.12}s`;
       });
-    }
-
-    // ── Panel (OpsConsole) aparece con ligero delay ──────────────────────────
-    const opsCol = document.querySelector(".ops-col");
-    if (opsCol) {
-      opsCol.classList.add("reveal");
-      (opsCol as HTMLElement).style.transitionDelay = "0.35s";
     }
 
     // ── Marquee ──────────────────────────────────────────────────────────────
