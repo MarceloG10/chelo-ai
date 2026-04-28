@@ -1,10 +1,16 @@
-export default function Services() {
+import { getTranslations } from "next-intl/server";
+
+export default async function Services() {
+  const t = await getTranslations("Services");
+
   return (
     <section className="section" id="servicios">
       <div className="wrap">
         <div className="section-head reveal">
-          <div className="section-label">[ 01 · Servicios ]</div>
-          <h2 className="section-h2">Tres maneras de darle <em>superpoderes</em> a tu negocio.</h2>
+          <div className="section-label">{t("label")}</div>
+          <h2 className="section-h2">
+            {t("titlePrefix")} <em>{t("titleEm")}</em> {t("titleSuffix")}
+          </h2>
         </div>
 
         <div className="services">
@@ -25,23 +31,20 @@ export default function Services() {
                 <circle className="node" cx="160" cy="60" r="6" fill="var(--v-accent)" />
               </svg>
             </div>
-            <div className="service-num">01 / Agentes de IA</div>
-            <h3 className="service-title">Agentes que<br />no duermen.</h3>
-            <p className="service-desc">
-              Diseñamos agentes personalizados que venden, reportan, ejecutan. Integrados con tu WhatsApp, email, CRM o stack interno. Nada genérico.
-            </p>
+            <div className="service-num">{t("s1Num")}</div>
+            <h3 className="service-title">{t("s1Title")}</h3>
+            <p className="service-desc">{t("s1Desc")}</p>
             <div className="service-list">
-              <span>Atención 24/7</span>
-              <span>Calificación de leads</span>
-              <span>Automatización de backoffice</span>
-              <span>Voz + WhatsApp + email</span>
+              <span>{t("s1f1")}</span>
+              <span>{t("s1f2")}</span>
+              <span>{t("s1f3")}</span>
+              <span>{t("s1f4")}</span>
             </div>
           </div>
 
           {/* Apps */}
           <div className="service reveal">
             <div className="service-visual viz-apps">
-              {/* Laptop */}
               <div className="dev-laptop">
                 <div className="dev-screen">
                   <div className="dev-bar" />
@@ -55,7 +58,6 @@ export default function Services() {
                 </div>
                 <div className="dev-chin" />
               </div>
-              {/* Phone */}
               <div className="dev-phone">
                 <div className="dev-screen">
                   <div className="dev-bar" />
@@ -67,16 +69,14 @@ export default function Services() {
                 </div>
               </div>
             </div>
-            <div className="service-num">02 / Desarrollo</div>
-            <h3 className="service-title">Apps y webs<br />hechas rápido.</h3>
-            <p className="service-desc">
-              MVPs en 2-4 semanas. Productos completos en meses, no años. Usamos IA en cada paso — desde el diseño hasta el deploy.
-            </p>
+            <div className="service-num">{t("s2Num")}</div>
+            <h3 className="service-title">{t("s2Title")}</h3>
+            <p className="service-desc">{t("s2Desc")}</p>
             <div className="service-list">
-              <span>Apps móviles (iOS / Android)</span>
-              <span>Webs y dashboards</span>
-              <span>Backend y APIs</span>
-              <span>Diseño UX/UI incluido</span>
+              <span>{t("s2f1")}</span>
+              <span>{t("s2f2")}</span>
+              <span>{t("s2f3")}</span>
+              <span>{t("s2f4")}</span>
             </div>
           </div>
 
@@ -92,16 +92,14 @@ export default function Services() {
                 <circle cx="176" cy="38" r="3" fill="var(--v-accent)" />
               </svg>
             </div>
-            <div className="service-num">03 / Visualización de datos</div>
-            <h3 className="service-title">Datos que<br />hablan claro.</h3>
-            <p className="service-desc">
-              Conectamos tus fuentes dispersas (CRM, ERP, Excel, APIs) y las convertimos en dashboards con IA que explica qué está pasando y qué hacer.
-            </p>
+            <div className="service-num">{t("s3Num")}</div>
+            <h3 className="service-title">{t("s3Title")}</h3>
+            <p className="service-desc">{t("s3Desc")}</p>
             <div className="service-list">
-              <span>Dashboards en tiempo real</span>
-              <span>Alertas Slack/email</span>
-              <span>Reportes que se explican solos</span>
-              <span>KPIs + predicciones</span>
+              <span>{t("s3f1")}</span>
+              <span>{t("s3f2")}</span>
+              <span>{t("s3f3")}</span>
+              <span>{t("s3f4")}</span>
             </div>
           </div>
         </div>

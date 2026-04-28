@@ -1,54 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
-const pillars = [
-  {
-    label: "Venden",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
-      </svg>
-    ),
-    headline: "Tu mejor vendedor nunca descansa.",
-    description:
-      "Califica leads, responde objeciones y cierra ventas — las 24 horas, los 7 días. Sin intervención humana.",
-    stat: "24/7",
-    statLabel: "disponible",
-  },
-  {
-    label: "Reportan",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 3v18h18" />
-        <path d="M18 9l-5 5-3-3-4 4" />
-      </svg>
-    ),
-    headline: "Decisiones más rápidas, con datos frescos.",
-    description:
-      "Recibe resúmenes automáticos de ventas, alertas clave y métricas importantes — directo a tu WhatsApp o email, cuando los necesitas.",
-    stat: "<1min",
-    statLabel: "tiempo de respuesta",
-  },
-  {
-    label: "Ejecutan",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 8v4l3 3" />
-      </svg>
-    ),
-    headline: "Tu equipo enfocado en lo que importa.",
-    description:
-      "El agente se encarga de lo repetitivo — procesos, seguimientos, integraciones — para que tu equipo use su tiempo en lo que realmente mueve el negocio.",
-    stat: "∞",
-    statLabel: "tareas simultáneas",
-  },
-];
+type Pillar = {
+  label: string;
+  icon: React.ReactNode;
+  headline: string;
+  description: string;
+  stat: string;
+  statLabel: string;
+};
 
-function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: number }) {
+function PillarCard({ pillar, index }: { pillar: Pillar; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -72,7 +36,6 @@ function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
         transition: `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`,
       }}
     >
-      {/* Top row */}
       <div className="flex items-start justify-between">
         <div className="p-3 rounded-xl bg-violet-500/10 text-violet-400 group-hover:bg-violet-500/20 transition-colors duration-300">
           {pillar.icon}
@@ -82,28 +45,20 @@ function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
           <div className="text-xs text-white/30 mt-0.5">{pillar.statLabel}</div>
         </div>
       </div>
-
-      {/* Label */}
       <div>
         <span className="text-xs uppercase tracking-widest text-violet-500 font-semibold">
           {pillar.label}
         </span>
       </div>
-
-      {/* Headline */}
-      <h3 className="text-xl font-semibold text-white leading-snug">
-        {pillar.headline}
-      </h3>
-
-      {/* Description */}
-      <p className="text-white/45 text-sm leading-relaxed">
-        {pillar.description}
-      </p>
+      <h3 className="text-xl font-semibold text-white leading-snug">{pillar.headline}</h3>
+      <p className="text-white/45 text-sm leading-relaxed">{pillar.description}</p>
     </div>
   );
 }
 
-function PillarsHeader() {
+function PillarsHeader({ badge, titlePrefix, titleAccent, sub }: {
+  badge: string; titlePrefix: string; titleAccent: string; sub: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -126,7 +81,7 @@ function PillarsHeader() {
           transition: "opacity 0.6s ease 0s, transform 0.6s ease 0s",
         }}
       >
-        Elige tu agente
+        {badge}
       </span>
       <h2
         className="text-4xl sm:text-5xl font-bold text-white tracking-tight mt-4"
@@ -136,8 +91,8 @@ function PillarsHeader() {
           transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
         }}
       >
-        Cada objetivo,{" "}
-        <span className="text-violet-400">su propio agente.</span>
+        {titlePrefix}{" "}
+        <span className="text-violet-400">{titleAccent}</span>
       </h2>
       <p
         className="text-white/40 mt-5 max-w-xl mx-auto text-lg"
@@ -147,19 +102,67 @@ function PillarsHeader() {
           transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
         }}
       >
-        Hecho a tu medida. Listo para trabajar.
+        {sub}
       </p>
     </div>
   );
 }
 
 export default function Pillars() {
+  const t = useTranslations("Pillars");
+
+  const pillars: Pillar[] = [
+    {
+      label: t("p1Label"),
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z" />
+          <path d="M2 17l10 5 10-5" />
+          <path d="M2 12l10 5 10-5" />
+        </svg>
+      ),
+      headline: t("p1Headline"),
+      description: t("p1Desc"),
+      stat: "24/7",
+      statLabel: t("p1StatLabel"),
+    },
+    {
+      label: t("p2Label"),
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 3v18h18" />
+          <path d="M18 9l-5 5-3-3-4 4" />
+        </svg>
+      ),
+      headline: t("p2Headline"),
+      description: t("p2Desc"),
+      stat: "<1min",
+      statLabel: t("p2StatLabel"),
+    },
+    {
+      label: t("p3Label"),
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v4l3 3" />
+        </svg>
+      ),
+      headline: t("p3Headline"),
+      description: t("p3Desc"),
+      stat: "∞",
+      statLabel: t("p3StatLabel"),
+    },
+  ];
+
   return (
     <section id="pilares" className="relative pt-14 pb-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <PillarsHeader />
-
-        {/* Cards */}
+        <PillarsHeader
+          badge={t("badge")}
+          titlePrefix={t("titlePrefix")}
+          titleAccent={t("titleAccent")}
+          sub={t("sub")}
+        />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pillars.map((pillar, i) => (
             <PillarCard key={pillar.label} pillar={pillar} index={i} />

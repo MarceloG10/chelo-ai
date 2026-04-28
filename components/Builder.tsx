@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
-/* ── Orbit ─────────────────────────────────────────────── */
-const ORBIT_LABELS = ["CRM", "WA", "DB", "API"];
 function OrbitVisual() {
+  const ORBIT_LABELS = ["CRM", "WA", "DB", "API"];
   return (
     <div className="bv-orbit">
       <div className="bv-core" />
@@ -15,14 +15,14 @@ function OrbitVisual() {
   );
 }
 
-/* ── Chips (DEFINE) ─────────────────────────────────────── */
-const CHIP_ROWS: { label: string; chips: string[] }[] = [
-  { label: "TONO",    chips: ["formal", "casual", "técnico"] },
-  { label: "IDIOMA",  chips: ["ES", "EN", "FR"] },
-  { label: "LÍMITES", chips: ["suave", "estricto"] },
-];
-
-function ChipsVisual() {
+function ChipsVisual({ chipTone, chipLang, chipLimits }: {
+  chipTone: string; chipLang: string; chipLimits: string;
+}) {
+  const CHIP_ROWS = [
+    { label: chipTone,   chips: ["formal", "casual", "técnico"] },
+    { label: chipLang,   chips: ["ES", "EN", "CA"] },
+    { label: chipLimits, chips: ["suave", "estricto"] },
+  ];
   const [actives, setActives] = useState([0, 0, 0]);
   useEffect(() => {
     const t = setInterval(() => {
@@ -34,6 +34,7 @@ function ChipsVisual() {
       });
     }, 1200);
     return () => clearInterval(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="bv-chips">
@@ -51,7 +52,6 @@ function ChipsVisual() {
   );
 }
 
-/* ── Bars (ENTRENA) ─────────────────────────────────────── */
 const STREAM_LINES = [
   "> processing batch 1/12",
   "> tokens: 4,821",
@@ -67,7 +67,7 @@ const STREAM_LINES = [
   "> fine-tuning…",
 ];
 
-function BarsVisual() {
+function BarsVisual({ learning }: { learning: string }) {
   const [offset, setOffset] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setOffset((o) => o + 1), 900);
@@ -90,17 +90,17 @@ function BarsVisual() {
             </div>
           </div>
         ))}
-        <div className="bv-learning">aprendiendo<span className="bv-learning-dot" /></div>
+        <div className="bv-learning">{learning}<span className="bv-learning-dot" /></div>
       </div>
     </div>
   );
 }
 
-/* ── Metrics ────────────────────────────────────────────── */
 function MetricsVisual() {
   const [vals, setVals] = useState([1247, 89, 99.9, 3.2]);
   const [flipIdx, setFlipIdx] = useState(-1);
   const cycleRef = useRef(0);
+  const labels = ["msgs/día", "leads", "uptime", "respuesta"];
 
   useEffect(() => {
     const t = setInterval(() => {
@@ -125,7 +125,6 @@ function MetricsVisual() {
     "99.9%",
     `${vals[3]}s`,
   ];
-  const labels = ["msgs/día", "leads", "uptime", "respuesta"];
 
   return (
     <div className="bv-metrics">
@@ -139,28 +138,31 @@ function MetricsVisual() {
   );
 }
 
-/* ── Builder ────────────────────────────────────────────── */
-const CARDS = [
-  { num: "01 / CONECTA", title: "Tus fuentes\nde datos.",    Visual: OrbitVisual  },
-  { num: "02 / DEFINE",  title: "Tono y\npersonalidad.",     Visual: ChipsVisual   },
-  { num: "03 / ENTRENA", title: "Con tu\nnegocio real.",     Visual: BarsVisual   },
-  { num: "04 / LANZA",   title: "En producción.\n24/7.",     Visual: MetricsVisual },
-];
-
 export default function Builder() {
+  const t = useTranslations("Builder");
   const [active, setActive] = useState(0);
 
+  const CARDS = [
+    { num: t("c1Num"), title: t("c1Title"), Visual: () => <OrbitVisual /> },
+    { num: t("c2Num"), title: t("c2Title"), Visual: () => <ChipsVisual chipTone={t("chipTone")} chipLang={t("chipLang")} chipLimits={t("chipLimits")} /> },
+    { num: t("c3Num"), title: t("c3Title"), Visual: () => <BarsVisual learning={t("learning")} /> },
+    { num: t("c4Num"), title: t("c4Title"), Visual: () => <MetricsVisual /> },
+  ];
+
   useEffect(() => {
-    const t = setInterval(() => setActive((a) => (a + 1) % CARDS.length), 2500);
-    return () => clearInterval(t);
+    const interval = setInterval(() => setActive((a) => (a + 1) % CARDS.length), 2500);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <section className="section" id="builder" style={{ paddingTop: 40 }}>
       <div className="wrap">
         <div className="section-head reveal">
-          <div className="section-label">[ 02 · Cómo lo construimos ]</div>
-          <h2 className="section-h2">Cuatro pasos. <em>Siete días.</em></h2>
+          <div className="section-label">{t("label")}</div>
+          <h2 className="section-h2">
+            {t("titlePrefix")} <em>{t("titleEm")}</em>
+          </h2>
         </div>
 
         <div className="builder-grid reveal">

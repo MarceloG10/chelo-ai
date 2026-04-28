@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 const WA_LINK = "https://wa.me/34617700922";
 const EMAIL = "Marcelo@hhtech.dev";
 
 export default function CTASection() {
+  const t = useTranslations("CTA");
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -40,19 +42,19 @@ export default function CTASection() {
   }
 
   const btnLabel =
-    status === "sending" ? "Enviando…" :
-    status === "ok" ? "Enviado ✓" :
-    status === "error" ? "Error · usa WhatsApp" : "Enviar";
+    status === "sending" ? t("btnSending") :
+    status === "ok" ? t("btnSent") :
+    status === "error" ? t("btnError") : t("btnSend");
 
   return (
     <section className="cta-section" id="contacto">
       <div className="wrap">
         <div className="cta-inner reveal">
           <div>
-            <h2 className="cta-h2">¿Tienes una idea? <em>Hagámosla real esta semana.</em></h2>
-            <p className="cta-sub">
-              Escríbenos por WhatsApp para una respuesta instantánea, o déjanos un mensaje si prefieres el correo tradicional. La primera conversación siempre es gratis y directa al grano.
-            </p>
+            <h2 className="cta-h2">
+              {t("titlePrefix")} <em>{t("titleEm")}</em>
+            </h2>
+            <p className="cta-sub">{t("sub")}</p>
             <div style={{ display: "flex", gap: 12, marginTop: 32, flexWrap: "wrap" }}>
               <a href={WA_LINK} className="btn-wa" target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon />
@@ -80,60 +82,53 @@ export default function CTASection() {
                   <path className="check-mark" d="M14 26l9 9 15-15" stroke="var(--v-accent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <h3 className="success-title">¡Mensaje recibido!</h3>
-              <p className="success-sub">Te contactamos antes de <strong>24 horas</strong>.<br />Mantén un ojo en tu bandeja de entrada.</p>
+              <h3 className="success-title">{t("successTitle")}</h3>
+              <p className="success-sub">{t("successSub")}</p>
               <div style={{ fontFamily: "var(--v-mono)", fontSize: 11, opacity: 0.45, marginTop: 24, letterSpacing: ".1em" }}>
-                EQUIPO HELLO HUMAN · BARCELONA
+                {t("successTeam")}
               </div>
             </div>
           ) : (
-          <form
-            className="form"
-            onSubmit={handleSubmit}
-          >
-            <input type="hidden" name="_subject" value="Nuevo contacto desde Hello Human · hhtech.dev" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
-            <div className="form-row">
-              <label htmlFor="contact-name">Nombre</label>
-              <input id="contact-name" name="name" required placeholder="¿Cómo te llamas?" />
-            </div>
-            <div className="form-row">
-              <label htmlFor="contact-email">Email</label>
-              <input id="contact-email" name="email" type="email" required placeholder="tu@email.com" />
-            </div>
-            <div className="form-row">
-              <label htmlFor="contact-service">¿Qué necesitas?</label>
-              <select id="contact-service" name="service">
-                <option>Un agente de IA</option>
-                <option>Una app o web</option>
-                <option>Digitalizar un proceso</option>
-                <option>Aún no lo sé, ayudadme</option>
-              </select>
-            </div>
-            <div className="form-row">
-              <label htmlFor="contact-msg">Cuéntame más (opcional)</label>
-              <textarea id="contact-msg" name="msg" placeholder="Describe brevemente tu proyecto…" />
-            </div>
-            <div className="form-actions">
-              <button
-                type="submit"
-                className="btn-accent"
-                disabled={status === "sending"}
-                style={
-                  status === "error" ? { background: "#ff4545", color: "#fff" } : {}
-                }
-              >
-                {btnLabel}
-                {status === "idle" && (
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                  </svg>
-                )}
-              </button>
-              <span style={{ fontFamily: "var(--v-mono)", fontSize: 11, opacity: 0.5 }}>RESPUESTA EN &lt; 24H</span>
-            </div>
-          </form>
+            <form className="form" onSubmit={handleSubmit}>
+              <input type="hidden" name="_subject" value="Nuevo contacto desde Hello Human · hhtech.dev" />
+              <div className="form-row">
+                <label htmlFor="contact-name">{t("formName")}</label>
+                <input id="contact-name" name="name" required placeholder={t("formNamePlaceholder")} />
+              </div>
+              <div className="form-row">
+                <label htmlFor="contact-email">{t("formEmail")}</label>
+                <input id="contact-email" name="email" type="email" required placeholder="tu@email.com" />
+              </div>
+              <div className="form-row">
+                <label htmlFor="contact-service">{t("formService")}</label>
+                <select id="contact-service" name="service">
+                  <option>{t("opt1")}</option>
+                  <option>{t("opt2")}</option>
+                  <option>{t("opt3")}</option>
+                  <option>{t("opt4")}</option>
+                </select>
+              </div>
+              <div className="form-row">
+                <label htmlFor="contact-msg">{t("formMsg")}</label>
+                <textarea id="contact-msg" name="msg" placeholder={t("formMsgPlaceholder")} />
+              </div>
+              <div className="form-actions">
+                <button
+                  type="submit"
+                  className="btn-accent"
+                  disabled={status === "sending"}
+                  style={status === "error" ? { background: "#ff4545", color: "#fff" } : {}}
+                >
+                  {btnLabel}
+                  {status === "idle" && (
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                    </svg>
+                  )}
+                </button>
+                <span style={{ fontFamily: "var(--v-mono)", fontSize: 11, opacity: 0.5 }}>{t("responseTime")}</span>
+              </div>
+            </form>
           )}
         </div>
       </div>
