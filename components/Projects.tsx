@@ -14,7 +14,7 @@ export default async function Projects() {
         </div>
 
         <div className="projects">
-          <article className="project clubma reveal">
+          <article className="project clubma clubma-featured reveal">
             <div className="project-bg">
               <svg viewBox="0 0 200 200" fill="none">
                 <circle cx="100" cy="100" r="80" stroke="white" strokeWidth="1" strokeDasharray="4 4" />
@@ -22,8 +22,9 @@ export default async function Projects() {
                 <circle cx="100" cy="100" r="20" fill="white" opacity={0.4} />
               </svg>
             </div>
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", display: "flex", gap: 8, flexWrap: "wrap" }}>
               <div className="project-tag">{t("inDev")}</div>
+              <div className="project-tag project-tag-star">{t("clubmaFeatured")}</div>
             </div>
             <div style={{ position: "relative" }}>
               <div style={{ fontFamily: "var(--v-mono)", fontSize: 11, opacity: 0.7, letterSpacing: "0.12em" }}>{t("clubmaCategory")}</div>

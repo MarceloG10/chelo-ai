@@ -356,7 +356,9 @@ html[data-variant="vapor"] .service-title { font-weight: 600; letter-spacing: -0
 .project { position: relative; padding: 28px; border-radius: 20px; overflow: hidden; min-height: 420px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; cursor: pointer; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease; will-change: transform; }
 .project:hover { transform: translateY(-8px) scale(1.01); }
 .project.clubma { background: linear-gradient(155deg, #0b1d3a 0%, #1e4d8f 100%); }
-.project.clubma:hover { box-shadow: 0 24px 60px rgba(30,77,143,0.55); }
+.project.clubma-featured { border: 1.5px solid rgba(182,255,60,0.45); box-shadow: 0 0 0 1px rgba(182,255,60,0.12), inset 0 0 60px rgba(182,255,60,0.04); }
+.project.clubma-featured:hover { box-shadow: 0 24px 60px rgba(30,77,143,0.55), 0 0 0 1.5px rgba(182,255,60,0.5); }
+.project-tag-star { background: rgba(182,255,60,0.18) !important; color: #b6ff3c; border: 1px solid rgba(182,255,60,0.3); }
 .project.tourmate { background: linear-gradient(155deg, #1a3a2e 0%, #2d8659 100%); }
 .project.tourmate:hover { box-shadow: 0 24px 60px rgba(45,134,89,0.55); }
 .project.clinica { background: linear-gradient(155deg, #2d1a3a 0%, #8f3c7a 100%); }
