@@ -17,9 +17,9 @@ const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk", 
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "optional", preload: false });
 
 const siteUrl = "https://www.hhtech.dev";
-const ogTitle = "Hello Human · Agentes IA, Apps y Dashboards a velocidad imposible";
+const ogTitle = "Hello Human · Apps, webs y productos digitales a velocidad imposible";
 const ogDescription =
-  "Construimos agentes de IA, apps y dashboards que antes tomaban meses, ahora en días. Humanos + IA. Sin equipos gigantes. Sin burocracia.";
+  "Construimos apps móviles, webs y productos digitales que antes tomaban meses, ahora en semanas. Humanos + IA. Sin equipos gigantes. Sin burocracia.";
 
 export const metadata: Metadata = {
   title: { default: ogTitle, template: "%s · Hello Human" },

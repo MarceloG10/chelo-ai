@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Hello Human · Agentes IA, Apps y Dashboards a velocidad imposible";
+export const alt = "Hello Human · Apps, webs y productos digitales a velocidad imposible";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -61,7 +61,7 @@ export default function OGImage() {
 
           {/* Tagline */}
           <span style={{ color: "rgba(255,255,255,0.35)", fontSize: 20, marginTop: 32, letterSpacing: "-0.01em" }}>
-            Agentes IA · Apps · Dashboards · hhtech.dev
+            Apps · Webs · Productos digitales · hhtech.dev
           </span>
         </div>
 
